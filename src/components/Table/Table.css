@@ -1,0 +1,74 @@
+.TableWrapper {
+    position: absolute;
+    width: 625px;
+    height: 598px;
+    left: 42px;
+    top: 387px;
+    border: 1px solid #C7C7C7;
+    box-sizing: border-box;
+}
+
+.TableHeaderWrapper {
+    position: absolute;
+    width: 624px;
+    height: 59px;
+    left: 0px;
+    top: 0px;
+}
+
+.TableHeader {
+    position: absolute;
+    width: 624px;
+    height: 59px;
+    left: 0px;
+    top: 0px;
+
+    background: #C4C4C4;
+}
+
+.TableHeaderName {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 63px;
+    top: 19px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+
+}
+
+.TableHeaderGrade {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 182px;
+    top: 19px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.TableContent {
+    position: absolute;
+    width: 624px;
+    height: 538px;
+    left: 0px;
+    top: 59px
+}
