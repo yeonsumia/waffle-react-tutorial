@@ -1,0 +1,110 @@
+.TableRowWrapper {
+    width: 624px;
+    height: 73px;
+    background: #F8F8F8;
+    border-bottom: 1px solid #C7C7C7;
+    border-right: 1px solid #C7C7C7;
+    box-sizing: border-box;
+}
+
+.TableRowWrapper:hover .TableRowDetail {
+    display: inline-block;
+    vertical-align: middle;
+    width: 33px;
+    height: 33px;
+    margin-left:365px;
+
+    background: #C4C4C4;
+}
+
+.TableRowDetailSelected {
+    display: inline-block;
+    vertical-align: middle;
+    width: 33px;
+    height: 33px;
+    margin-left:365px;
+
+    background: #C4C4C4;
+}
+.pointRight {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 10px auto;
+    border-top: 2px solid #000;
+    border-left: 2px solid #000;
+    transform: rotate(135deg);
+}
+
+
+.pointRight::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 15px;
+    background-color: black;
+    transform: rotate(-45deg) translate(5px, 2px);
+}
+
+.pointLeft {
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: 10px auto;
+    border-top: 2px solid #000;
+    border-left: 2px solid #000;
+    transform: rotate(-45deg);
+}
+
+.pointLeft::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 15px;
+    background-color: black;
+    transform: rotate(-45deg) translate(5px, 2px);
+}
+
+.TableRowDetail {
+    display: none;
+}
+
+.Selected {
+    background: #DEDEDE;
+}
+
+.TableRowName {
+    display: inline-block;
+    width: 50px;
+    height: 23px;
+    margin-left:55px;
+    margin-top: 27px;
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+}
+
+.TableRowGrade {
+    width: 10px;
+    height: 23px;
+    margin-left: 89px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+
+}
