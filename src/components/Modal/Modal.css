@@ -1,0 +1,195 @@
+.modal {
+    visibility: hidden;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    /*animation: modal-bg-disappear .3s;*/
+    opacity: 0;
+    transition: visibility .5s, opacity .5s;
+}
+
+.modal.openModal {
+    visibility: visible;
+    /*align-items: center;*/
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    /*animation: modal-bg-show .3s;*/
+    opacity: 1;
+}
+
+.modalWrapper {
+    position: absolute;
+    width: 669px;
+    height: 281px;
+    left: 383px;
+    top: 276px;
+
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+
+}
+
+.modalBox {
+    position: absolute;
+    width: 603px;
+    height: 238px;
+    left: 33px;
+    top: 25px;
+}
+
+.modalBoxName {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 11px;
+}
+
+.modalBoxGrade {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 63px;
+
+}
+
+.modalBoxProfile {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 115px;
+
+}
+
+.modalBoxText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 5px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.modalBoxInput {
+    position: absolute;
+    width: 492px;
+    height: 30px;
+    left: 80px;
+    top: 3px;
+
+    background: #F4F4F4;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+}
+
+.modalBoxProfileText {
+    position: absolute;
+    width: 50px;
+    height: 23px;
+    left: 5px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+
+.closeModal {
+    position: absolute;
+    width: 72px;
+    height: 34px;
+    left: 450px;
+    top: 213px;
+
+    background: #CACACA;
+}
+
+.closeModalText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 19px;
+    top: 5px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+
+}
+
+.addUser {
+    position: absolute;
+    width: 72px;
+    height: 34px;
+    left: 544px;
+    top: 213px;
+
+    background: #BFF8C5;
+}
+
+.addUserText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 19px;
+    top: 5px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+@keyframes modal-bg-show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-bg-disappear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
