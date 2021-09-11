@@ -1,30 +1,23 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header/Header'
-import Dashboard from "./components/Dashboard/Dashboard"
-import ControlBar from "./components/ControlBar/ControlBar"
-import Table from "./components/Table/Table"
-import SeparateBar from "./components/SeparateBar/SeparateBar"
-import Detail from "./components/Detail/Detail"
-import Modal from "./components/Modal/Modal"
-import dummyData from './dummyData/dummy'
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-  const [info, setInfo] = useState(0);
-  const [tableList, setTableList] = useState(dummyData);
-  const [search, setSearch] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
-
-
   return (
-    <div className="AppWrapper">
-        <Header />
-        <Dashboard />
-        <ControlBar search={search} setSearch={setSearch} setModalOpen={setModalOpen}/>
-        <Table info={info} setInfo={setInfo} tableList={tableList} search={search} />
-        <SeparateBar />
-        <Detail info={info} setInfo={setInfo} tableList={tableList} setTableList={setTableList}/>
-        <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} tableList={tableList} setTableList={setTableList} setInfo={setInfo}/>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
