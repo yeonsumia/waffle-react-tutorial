@@ -1,0 +1,10 @@
+.SeparateBar {
+    position: absolute;
+    width: 650px;
+    height: 0px;
+    left:393px;
+    top: 665px;
+
+    border: 1px solid #E4E4E4;
+    transform: rotate(90.01deg);
+}
