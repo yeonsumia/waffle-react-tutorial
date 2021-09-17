@@ -1,0 +1,220 @@
+.DetailWrapper {
+    position: absolute;
+    width: 624px;
+    height: 642px;
+    left: 770px;
+    top: 343px;
+
+    border: 1px solid #D3D3D3;
+    box-sizing: border-box;
+}
+
+.DetailText {
+    position: absolute;
+    width: 450px;
+    height: 176px;
+    left: 87px;
+    top: 255px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 31px;
+    text-align: center;
+
+    color: #000000;
+
+}
+
+.DetailUserHeader {
+    position: absolute;
+    width: 603px;
+    height: 41px;
+    left: 11px;
+    top: 10px;
+
+}
+
+.DetailUserSave {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    left: 0px;
+    top: 1px;
+
+    background: #ECFFEB;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.DetailUserSaveText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 33px;
+    top: 10px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #636363;
+
+}
+
+.DetailUserDelete {
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    left: 503px;
+    top: 1px;
+
+    background: #FDE4E4;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.DetailUserDeleteText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 33px;
+    top: 10px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #636363;
+
+}
+
+.DetailUserImg {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: 162px;
+    top: 111px;
+}
+
+.DetailUserContent {
+    position: absolute;
+    width: 603px;
+    height: 238px;
+    left: 11px;
+    top: 393px;
+
+}
+
+.DetailUserContentName {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 11px;
+
+}
+
+.DetailUserContentGrade {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 63px;
+}
+
+.DetailUserContentProfile {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 115px;
+}
+
+.DetailUserContentText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 5px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+
+.DetailUserContentInput {
+    position: absolute;
+    width: 492px;
+    height: 30px;
+    left: 80px;
+    top: 3px;
+
+    background: #F4F4F4;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+}
+
+.DetailUserContentProfileText {
+    position: absolute;
+    width: 50px;
+    height: 23px;
+    left: 5px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+
+.DetailToBio {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 548px;
+    top: 22px;
+
+}
+
+.DetailToBioImg {
+    position: absolute;
+    width: 37.5px;
+    height: 37.5px;
+    left: 12.5%;
+    right: 12.5%;
+    top: 12.5%;
+    bottom: 12.5%;
+}
+
+.DetailToBioBox {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+}

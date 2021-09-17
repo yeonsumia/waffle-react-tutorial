@@ -1,0 +1,22 @@
+.TableListWrapper {
+    width: 624px;
+    height: 538px;
+    overflow: scroll;
+}
+
+.TableListText {
+    position: absolute;
+    width: 585px;
+    height: 56px;
+    left: 20px;
+    top: 241px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 46px;
+    text-align: center;
+
+    color: #000000;
+}
