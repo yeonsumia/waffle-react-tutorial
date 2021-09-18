@@ -1,5 +1,4 @@
 import './ControlBar.css'
-import {useState} from "react";
 
 const ControlBar = ({search, setSearch, setModalOpen}) => {
     const openModal = () => { setModalOpen(true) };

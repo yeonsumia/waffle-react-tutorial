@@ -191,3 +191,30 @@
     color: #000000;
 
 }
+
+.DetailToBio {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 548px;
+    top: 22px;
+
+}
+
+.DetailToBioImg {
+    position: absolute;
+    width: 37.5px;
+    height: 37.5px;
+    left: 12.5%;
+    right: 12.5%;
+    top: 12.5%;
+    bottom: 12.5%;
+}
+
+.DetailToBioBox {
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+}
