@@ -12,7 +12,7 @@ const LoginPage = () => {
     return (
         <div className="LoginPageWrapper">
             <div className="LoginWrapper">
-                <img src={mainImg} className="LoginIcon" />
+                <img src={mainImg} className="LoginIcon" alt=""/>
                 <div className="LoginIconText">Sign in to Waffle HS</div>
                 <div className="LoginBox">
                     <div className="LoginUsernameBox">

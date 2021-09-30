@@ -7,7 +7,7 @@ const Dashboard = ({users}) => {
     const firstGradeNum = tableList.filter(user => user.grade === 1).length;
     const secondGradeNum = tableList.filter(user => user.grade === 2).length;
     const thirdGradeNum = tableList.filter(user => user.grade === 3).length;
-    const TotalNum = tableList.length;
+    const totalNum = tableList.length;
     const data = [
         {name: '1학년', value: firstGradeNum},
         {name: '2학년', value: secondGradeNum},
@@ -36,7 +36,7 @@ const Dashboard = ({users}) => {
                         <div className="DashboardTextFirst">1학년: {firstGradeNum}</div>
                         <div className="DashboardTextSecond">2학년: {secondGradeNum}</div>
                         <div className="DashboardTextThird">3학년: {thirdGradeNum}</div>
-                        <div className="DashboardTextTotal">전교생: {TotalNum}</div>
+                        <div className="DashboardTextTotal">전교생: {totalNum}</div>
                     </div>
                     <div className="DashboardPieChartWrapper">
                         <div className="DashboardPieChart">

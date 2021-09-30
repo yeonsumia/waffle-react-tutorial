@@ -19,14 +19,14 @@ const Confirm = ({deleteModal, setDeleteModal}) => {
             <div className="DeleteModalWrapper">
                 <div className="DeleteModal">
                     <div className="DeleteModalIconWrapper">
-                        <img className="DeleteModalIcon" src={deleteModalImg}/>
+                        <img className="DeleteModalIcon" src={deleteModalImg} alt="" />
                     </div>
                     <div className="DeleteModalText">학생을 삭제합니다.</div>
                     <div className="DeleteModalContentText">이 작업은 되돌릴 수 없습니다.</div>
                     <div className="DeleteModalCancelWrapper">
                         <div className="DeleteModalCancel" onClick={() => setDeleteModal(value => !value)}>
                             <div className="DeleteModalCancelIconWrapper">
-                                <img className="DeleteModalCancelIcon" src={cancelImg}/>
+                                <img className="DeleteModalCancelIcon" src={cancelImg} alt="" />
                             </div>
                             <div className="DeleteModalCancelText">취소</div>
                         </div>
@@ -35,7 +35,7 @@ const Confirm = ({deleteModal, setDeleteModal}) => {
                         <Link to="/students" onClick={onRemove}>
                             <div className="DeleteModalDelete">
                                 <div className="DeleteModalDeleteIconWrapper">
-                                    <img className="DeleteModalDeleteIcon" src={deleteClearImg}/>
+                                    <img className="DeleteModalDeleteIcon" src={deleteClearImg} alt="" />
                                 </div>
                                 <div className="DeleteModalDeleteText">삭제</div>
                             </div>

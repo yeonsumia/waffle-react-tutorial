@@ -10,25 +10,43 @@ import unlockImg from '../../resource/unlockImg.png'
 import deleteImg from '../../resource/delete.png'
 import saveImg from '../../resource/save.png'
 import lockProfileImg from '../../resource/lockProfile.png'
+import {useState, useEffect} from "react";
 
-import {useState} from "react";
 const StudentPage = () => {
     const {tableList, setTableList} = useUserContext();
     const params = useParams();
     const id = parseInt(params.id);
     const student = tableList.find(user => user.id === id);
+    const [locked, setLocked] = useState(false);
     const [inputs, setInputs] = useState({
-        profileImg: tableList.find(user => user.id === id).profileImg,
-        email: tableList.find(user => user.id === id).email.split('@')[0],
-        phone: tableList.find(user => user.id === id).phone,
-        major: tableList.find(user => user.id === id).major
+        profileImg: '',
+        email: '',
+        phone: '',
+        major: ''
     });
+
+    useEffect(() => {
+        setInputs({
+            profileImg: student.profileImg,
+            email: student.email.split('@')[0],
+            phone: student.phone,
+            major: student.major
+        });
+        setLocked(student.locked);
+    }, [tableList, inputs, student.email, student.major, student.phone, student.profileImg, student.locked]);
+
     const {profileImg, email, phone, major} = inputs;
     const initialImg ="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-1024.png";
-    const [lock, setLock] = useState(false);
+
     const [deleteModal,setDeleteModal] = useState(false);
     const onClick = () => {
-        setLock(lock => !lock);
+        setTableList(
+            tableList.map(user =>
+                user.id === id ? {...user, locked: !locked}: user)
+        );
+        // student.locked 는 life cycle 종료 뒤에 업데이트됨.
+        // locked state 변수는 마운트될때 업데이트됨.
+        // console.log(locked)
     }
     const onChange = (e) => {
         const {value, name} = e.target;
@@ -57,13 +75,13 @@ const StudentPage = () => {
 
     const limit = (val) => {
         if(val.length === 1 && val[0] !== '0'){
-            val = '010' + val;
+            return '010' + val;
         }
         if(val.length === 2 && val.substring(0,2) !== '01'){
-            val = '010' + val;
+            return '010' + val;
         }
         if(val.length === 3 && val.substring(0,3) !== '010'){
-            val = '010' + val;
+            return '010' + val;
         }
         return val;
     }
@@ -79,13 +97,13 @@ const StudentPage = () => {
                 <div className="ToBackWrapper">
                     <div className="ToBackImgWrapper">
                         <Link to="/students">
-                            <img src={toBackImg} className="ToBackImg"/>
+                            <img src={toBackImg} className="ToBackImg" alt="" />
                         </Link>
                     </div>
                     <div className="ToBackText">학생 목록 페이지로</div>
                 </div>
                 <div className="StudentImgWrapper">
-                    <img className="StudentImg" src={profileImg !== ''? profileImg: initialImg} />
+                    <img className="StudentImg" src={profileImg !== ''? profileImg: initialImg} alt="" />
                 </div>
                 <div className="StudentInfoWrapper">
                     <div className="StudentInfoNameWrapper">
@@ -100,23 +118,23 @@ const StudentPage = () => {
                 <div className="lockIconWrapper">
                     <div className="lockIcon" onClick={onClick}>
                         <div className="lockIconImgWrapper">
-                            <img src={lock? unlockImg:lockImg} className="lockIconImg"/>
+                            <img src={locked? unlockImg:lockImg} className="lockIconImg" alt="" />
                         </div>
-                        <div className="lockIconText">{lock? "해제":"잠금"}</div>
+                        <div className="lockIconText">{locked? "해제":"잠금"}</div>
                     </div>
                 </div>
                 <div className="deleteIconWrapper">
-                    <div className={lock? "lockedDeleteIcon" : "deleteIcon" } onClick={lock? null : () => setDeleteModal(state => !state)}>
+                    <div className={locked? "lockedDeleteIcon" : "deleteIcon" } onClick={locked? null : () => setDeleteModal(state => !state)}>
                         <div className="deleteIconImgWrapper">
-                            <img src={deleteImg} className="deleteIconImg"/>
+                            <img src={deleteImg} className="deleteIconImg" alt=""/>
                         </div>
                         <div className="deleteIconText">삭제</div>
                     </div>
                 </div>
                 <div className="saveIconWrapper">
-                    <div className={lock? "lockedSaveIcon" : "saveIcon" } onClick={lock? null : onToggle}>
+                    <div className={locked? "lockedSaveIcon" : "saveIcon" } onClick={locked? null : onToggle}>
                         <div className="saveIconImgWrapper">
-                            <img src={saveImg} className="saveIconImg"/>
+                            <img src={saveImg} className="saveIconImg" alt=""/>
                         </div>
                         <div className="saveIconText">저장</div>
                     </div>
@@ -160,9 +178,9 @@ const StudentPage = () => {
                             </div>
                         </div>
                     </div>
-                    {lock?
+                    {locked?
                         <div className="lockedInfoContent">
-                            <img src={lockProfileImg} className="lockedInfoImg"/>
+                            <img src={lockProfileImg} className="lockedInfoImg" alt=""/>
                             <div className="lockedInfoText">수정하려면 잠금을 해제하세요.</div>
                         </div>
                         : null}

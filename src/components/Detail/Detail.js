@@ -4,8 +4,8 @@ import {useUserContext} from "../../context/UserContext";
 import toBioIcon from '../../resource/toBio.png';
 import {Link} from 'react-router-dom';
 
-const Detail = ({info, setInfo}) => {
-    const {tableList, setTableList} = useUserContext();
+const Detail = ({info}) => {
+    const {tableList} = useUserContext();
     const [inputs, setInputs] = useState({
         id: '',
         name: '',
@@ -23,7 +23,7 @@ const Detail = ({info, setInfo}) => {
                 profileImg: tableList.find(user => user.id === info).profileImg
             })
         }
-    }, [info]);
+    }, [info, inputs, tableList]);
 
     const onChange = (e) => {
         const {value, name} = e.target;
@@ -59,11 +59,11 @@ const Detail = ({info, setInfo}) => {
             <div className="DetailToBio">
                 <Link to = {id} >
                     <div className="DetailToBioBox">
-                        <img className="DetailToBioImg" src={toBioIcon}/>
+                        <img className="DetailToBioImg" src={toBioIcon} alt="" />
                     </div>
                 </Link>
             </div>
-            <img className="DetailUserImg" src= {tableList.find(user => user.id === info).profileImg !== '' ? tableList.find(user => user.id === info).profileImg :initialImg} />
+            <img className="DetailUserImg" src= {tableList.find(user => user.id === info).profileImg !== '' ? tableList.find(user => user.id === info).profileImg :initialImg} alt="" />
 
             <div className="DetailUserContent">
                 <div className="DetailUserContentName">

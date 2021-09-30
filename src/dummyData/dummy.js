@@ -6,7 +6,8 @@ const dummyData = [
         "profileImg": "https://github.githubassets.com/images/modules/logos_page/Octocat.png",
         "email": "test@waffle.hs.kr",
         "phone": "010-0000-0000",
-        "major": "frontend"
+        "major": "frontend",
+        "locked": false
     }
 ];
 

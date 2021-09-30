@@ -1,4 +1,4 @@
-import {BrowserRouter, Switch, Route, Redirect} from "react-router-dom";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
 import StudentListPage from './route/StudentListPage/StudentListPage'
 import StudentPage from "./route/StudentPage/StudentPage";
 import LoginPage from "./route/LoginPage/LoginPage";
@@ -11,7 +11,7 @@ const App =() =>  (
             <Route path='/students' component={Auth(StudentListPage, true)}/>
             <Route path='/student/:id' component={Auth(StudentPage, true)}/>
             <Route path='/login' component={Auth(LoginPage, false)}/>
-            {sessionStorage.getItem('loginCheck') === 'true' ? <Redirect to='/students'/> : <Redirect to='/login'/> }
+            <Route path='*' component={Auth(null, false)}/>
         </Switch>
     </BrowserRouter>
 )

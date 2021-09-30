@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {useUserContext} from "../context/UserContext";
+import {Redirect} from "react-router-dom";
 
 const Auth = (SpecialComponent, option, adminRoute=null) => {
 
@@ -10,15 +11,16 @@ const Auth = (SpecialComponent, option, adminRoute=null) => {
     */
     const AuthenticateCheck = (props) => {
         const {loginCheck} = useUserContext();
-
+        const sessionLoginCheck = sessionStorage.getItem('loginCheck');
         useEffect(() => {
-            if (!loginCheck && sessionStorage.getItem('loginCheck') !== 'true' && option) {
+            if (!loginCheck && sessionLoginCheck !== 'true' && option) {
                 props.history.push('/login');
             }
-        }, []);
+        }, [loginCheck, props.history, sessionLoginCheck]);
 
         return (
-            <SpecialComponent />
+            SpecialComponent != null? <SpecialComponent /> : sessionLoginCheck? <Redirect to='/students'/> : <Redirect to='/login'/>
+
         )
 
     };
