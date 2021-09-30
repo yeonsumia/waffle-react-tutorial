@@ -1,23 +1,29 @@
 import { useState, useEffect } from 'react'
 import './Detail.css'
+import {useUserContext} from "../../context/UserContext";
+import toBioIcon from '../../resource/toBio.png';
+import {Link} from 'react-router-dom';
 
-const Detail = ({info, setInfo, tableList, setTableList}) => {
+const Detail = ({info}) => {
+    const {tableList} = useUserContext();
     const [inputs, setInputs] = useState({
+        id: '',
         name: '',
         grade: '',
         profileImg: '',
     });
-    const {name, grade, profileImg} = inputs;
+    const {id, name, grade, profileImg} = inputs;
     useEffect(() => {
         if(info !== 0){
             setInputs({
                 ...inputs,
+                id:  "/student/" + info,
                 name: tableList.find(user => user.id === info).name,
                 grade: tableList.find(user => user.id === info).grade,
                 profileImg: tableList.find(user => user.id === info).profileImg
             })
         }
-    }, [info]);
+    }, [info, inputs, tableList]);
 
     const onChange = (e) => {
         const {value, name} = e.target;
@@ -27,38 +33,37 @@ const Detail = ({info, setInfo, tableList, setTableList}) => {
         });
     }
 
-    const onToggle = () => {
-        const gradeList = ['1','2','3']
-        if(name.length > 3 || name.length < 2 || gradeList.find(num => num === grade) === undefined ){
-            alert("이름 또는 학년이 올바르지 않습니다.")
-            return null;
-        }
-        setTableList(
-            tableList.map(user =>
-                user.id === info ? {...user, name, grade:parseInt(grade), profileImg}: user)
-        )
-    }
-
-    const onRemove = () => {
-        setTableList(
-            tableList.filter(user => user.id !== info)
-        )
-        setInputs({name:'', grade: '', profileImg: ''})
-        setInfo(0)
-    }
+    // const onToggle = () => {
+    //     const gradeList = ['1','2','3']
+    //     if(name.length > 3 || name.length < 2 || gradeList.find(num => num === grade) === undefined ){
+    //         alert("이름 또는 학년이 올바르지 않습니다.")
+    //         return null;
+    //     }
+    //     setTableList(
+    //         tableList.map(user =>
+    //             user.id === info ? {...user, name, grade:parseInt(grade), profileImg}: user)
+    //     )
+    // }
+    //
+    // const onRemove = () => {
+    //     setTableList(
+    //         tableList.filter(user => user.id !== info)
+    //     )
+    //     setInputs({name:'', grade: '', profileImg: ''})
+    //     setInfo(0)
+    // }
     const initialImg ="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-1024.png"
     return (
     info !== 0 ?
         <div className="DetailWrapper">
-            <div className="DetailUserHeader">
-                <div className="DetailUserSave">
-                    <div onClick={onToggle} className="DetailUserSaveText">저장</div>
-                </div>
-                <div className="DetailUserDelete">
-                    <div onClick={onRemove} className="DetailUserDeleteText">삭제</div>
-                </div>
+            <div className="DetailToBio">
+                <Link to = {id} >
+                    <div className="DetailToBioBox">
+                        <img className="DetailToBioImg" src={toBioIcon} alt="" />
+                    </div>
+                </Link>
             </div>
-            <img className="DetailUserImg" src= {tableList.find(user => user.id === info).profileImg !== '' ? tableList.find(user => user.id === info).profileImg :initialImg} />
+            <img className="DetailUserImg" src= {tableList.find(user => user.id === info).profileImg !== '' ? tableList.find(user => user.id === info).profileImg :initialImg} alt="" />
 
             <div className="DetailUserContent">
                 <div className="DetailUserContentName">

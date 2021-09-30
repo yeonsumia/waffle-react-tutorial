@@ -1,0 +1,190 @@
+.DeleteModalWrapper {
+    position: absolute;
+    width: 1440px;
+    height: 1024px;
+    left: 0px;
+    top: 0px;
+
+    background: rgba(0, 0, 0, 0.36);
+}
+
+.DeleteModal {
+    position: absolute;
+    width: 636px;
+    height: 333px;
+    left: 441px;
+    top: 372px;
+
+    background: #FFFFFF;
+}
+
+.DeleteModalIconWrapper {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    left: 46px;
+    top: 37px;
+}
+
+.DeleteModalIcon {
+    position: absolute;
+    left: 4.17%;
+    right: 4.17%;
+    top: 8.33%;
+    bottom: 12.5%;
+    width: 55px;
+    height: 48px;
+}
+
+.DeleteModalText {
+    position: absolute;
+    width: 451px;
+    height: 31px;
+    left: 130px;
+    top: 50px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 31px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.DeleteModalContentText {
+    position: absolute;
+    width: 451px;
+    height: 23px;
+    left: 92px;
+    top: 167px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+
+}
+
+.DeleteModalCancelWrapper {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 384px;
+    top: 266px;
+
+}
+
+.DeleteModalCancel {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #D3EAFF;
+    border-radius: 10px;
+}
+.DeleteModalCancelIconWrapper {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 13px;
+    top: 13px;
+}
+
+.DeleteModalCancelIcon {
+    position: absolute;
+    left: 8.33%;
+    right: 8.33%;
+    top: 8.33%;
+    bottom: 8.33%;
+    width: 20px;
+    height: 20px;
+}
+
+.DeleteModalCancelText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 50px;
+    top: 13px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+
+}
+
+.DeleteModalDeleteWrapper {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 514px;
+    top: 266px;
+
+}
+
+.DeleteModalDelete {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #FCD8D8;
+    border-radius: 10px;
+}
+
+.DeleteModalDeleteIconWrapper {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 10px;
+    top: 13px;
+}
+
+.DeleteModalDeleteIcon {
+    position: absolute;
+    left: 20.83%;
+    right: 20.83%;
+    top: 12.5%;
+    bottom: 12.5%;
+    width: 14px;
+    height: 18px;
+}
+
+.DeleteModalDeleteText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 50px;
+    top: 13px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+
+}

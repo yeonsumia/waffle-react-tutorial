@@ -1,32 +1,19 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header/Header'
-import Dashboard from "./components/Dashboard/Dashboard"
-import ControlBar from "./components/ControlBar/ControlBar"
-import Table from "./components/Table/Table"
-import SeparateBar from "./components/SeparateBar/SeparateBar"
-import Detail from "./components/Detail/Detail"
-import Modal from "./components/Modal/Modal"
-import dummyData from './dummyData/dummy'
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import StudentListPage from './route/StudentListPage/StudentListPage'
+import StudentPage from "./route/StudentPage/StudentPage";
+import LoginPage from "./route/LoginPage/LoginPage";
+import Auth from './hoc/Auth';
 
-function App() {
-  const [info, setInfo] = useState(0);
-  const [tableList, setTableList] = useState(dummyData);
-  const [search, setSearch] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
-
-
-  return (
-    <div className="AppWrapper">
-        <Header />
-        <Dashboard />
-        <ControlBar search={search} setSearch={setSearch} setModalOpen={setModalOpen}/>
-        <Table info={info} setInfo={setInfo} tableList={tableList} search={search} />
-        <SeparateBar />
-        <Detail info={info} setInfo={setInfo} tableList={tableList} setTableList={setTableList}/>
-        <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} tableList={tableList} setTableList={setTableList} setInfo={setInfo}/>
-    </div>
-  );
-}
+const App =() =>  (
+    // window.sessionStorage.getItem('loginCheck') === 'true' ?
+    <BrowserRouter>
+        <Switch>
+            <Route path='/students' component={Auth(StudentListPage, true)}/>
+            <Route path='/student/:id' component={Auth(StudentPage, true)}/>
+            <Route path='/login' component={Auth(LoginPage, false)}/>
+            <Route path='*' component={Auth(null, false)}/>
+        </Switch>
+    </BrowserRouter>
+)
 
 export default App;

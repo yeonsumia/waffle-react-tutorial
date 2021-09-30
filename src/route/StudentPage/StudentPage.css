@@ -1,0 +1,767 @@
+input:focus { outline: none; }
+.StudentPageWrapper {
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    z-index: 1;
+    background: #FFFFFF;
+
+}
+
+.ToBackWrapper {
+    position: absolute;
+    width: 190px;
+    height: 40px;
+    left: 27px;
+    top: 30px;
+}
+
+.ToBackImgWrapper {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    left: 10px;
+    top: 8px;
+}
+
+.ToBackImg {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 16.67%;
+    right: 16.67%;
+    top: 16.67%;
+    bottom: 16.67%;
+}
+
+.ToBackText {
+    position: absolute;
+    width: 141px;
+    height: 23px;
+    left: 34px;
+    top: 10px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+
+}
+
+.StudentImgWrapper {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    left: 106px;
+    top: 128px;
+    border: 1px solid #D5D5D5;
+    box-sizing: border-box;
+    border-radius: 130px;
+    overflow: hidden;
+}
+
+.StudentImg {
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: -20px;
+    top: 10px;
+    z-index: -1;
+
+}
+
+.StudentInfoWrapper {
+    position: absolute;
+    width: 297px;
+    height: 113px;
+    left: 409px;
+    top: 206px;
+
+}
+
+.StudentInfoNameWrapper {
+    position: absolute;
+    width: 260px;
+    height: 39px;
+    left: 11px;
+    top: 11px;
+
+}
+.StudentInfoNameText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 5px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+.StudentInfoGradeWrapper {
+    position: absolute;
+    width: 260px;
+    height: 39px;
+    left: 11px;
+    top: 63px;
+
+}
+
+.StudentInfoGradeText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 5px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+.StudentInfoNameInput {
+    position: absolute;
+    width: 200px;
+    height: 23px;
+    left: 87px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+    border: none;
+    background: white;
+    color: #9C9C9C;
+}
+
+.StudentInfoGradeInput {
+    position: absolute;
+    width: 485px;
+    height: 23px;
+    left: 87px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+    border: none;
+    background: white;
+    color: #9D9D9D;
+
+}
+
+.lockIconWrapper {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 993px;
+    top: 92px;
+
+}
+.lockIcon {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #C4C4C4;
+    border-radius: 10px;
+
+}
+
+.lockIconImgWrapper {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 9px;
+    top: 9px;
+}
+
+.lockIconImg {
+    position: absolute;
+    left: 16.67%;
+    right: 16.67%;
+    top: 4.17%;
+    bottom: 8.33%;
+    width: 21px;
+    height: 28px;
+
+}
+
+.lockIconText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 50px;
+    top: 13px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+}
+
+.deleteIconWrapper {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 1135px;
+    top: 92px;
+}
+
+.deleteIcon {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #FCD8D8;
+    border-radius: 10px;
+}
+.lockedDeleteIcon {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #D7D7D7;
+    border-radius: 10px;
+}
+.deleteIconImgWrapper {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 6px;
+    top: 9px;
+}
+
+.deleteIconImg {
+    position: absolute;
+    left: 20.83%;
+    right: 20.83%;
+    top: 12.5%;
+    bottom: 12.5%;
+    width: 19px;
+    height: 24px;
+}
+
+.deleteIconText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 50px;
+    top: 13px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+}
+
+.saveIconWrapper{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 1277px;
+    top: 92px;
+
+}
+
+.saveIcon {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #D3FFDD;
+    border-radius: 10px;
+}
+
+.lockedSaveIcon {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+
+    background: #D3D3D3;
+    border-radius: 10px;
+}
+
+.saveIconImgWrapper {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 9px;
+    top: 9px;
+
+}
+
+.saveIconImg {
+    position: absolute;
+    left: 12.5%;
+    right: 12.5%;
+    top: 12.5%;
+    bottom: 12.5%;
+    width: 24px;
+    height: 24px;
+}
+
+.saveIconText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 50px;
+    top: 13px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+}
+
+.infoBox {
+    position: absolute;
+    width: 104px;
+    height: 40px;
+    left: 54px;
+    top: 476px;
+
+    background: #C4C4C4;
+}
+
+.infoBoxText {
+    position: absolute;
+    width: 34px;
+    height: 23px;
+    left: 35px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+
+.infoContent {
+    position: absolute;
+    width: 633px;
+    height: 457px;
+    left: 54px;
+    top: 516px;
+
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.infoContentBox {
+    position: absolute;
+    width: 603px;
+    height: 230px;
+    left: 15px;
+    top: 20px;
+
+}
+
+.lockedInfoContent {
+    position: absolute;
+    width: 633px;
+    height: 457px;
+    left: 0px;
+    top: 0px;
+
+    background: rgba(196, 196, 196, 0.44);
+}
+
+.infoContentPhone {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 11px;
+
+
+}
+
+.infoContentPhoneText {
+    position: absolute;
+    width: 67px;
+    height: 23px;
+    left: 75px;
+    top: 6px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+}
+
+.infoContentPhoneInputBox {
+    position: absolute;
+    width: 298px;
+    height: 30px;
+    left: 208px;
+    top: 3px;
+
+    background: #FFFFFF;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+
+}
+
+.infoContentPhoneInput {
+    position: absolute;
+    width: 280px;
+    height: 23px;
+    left: 7px;
+    top: 2px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+    border: hidden;
+
+
+    color: #000000;
+}
+
+.infoContentEmail {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 63px;
+
+}
+
+.infoContentEmailText {
+    position: absolute;
+    width: 50px;
+    height: 23px;
+    left: 93px;
+    top: 6px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+
+}
+
+.infoContentEmailInputBox {
+    position: absolute;
+    width: 298px;
+    height: 30px;
+    left: 208px;
+    top: 3px;
+
+    background: #FFFFFF;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+}
+
+.infoContentEmailInput {
+    position: absolute;
+    width: 179px;
+    height: 23px;
+    left: 7px;
+    top: 2px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+    border: hidden;
+
+    color: #000000;
+
+}
+
+.infoContentEmailInputText {
+    position: absolute;
+    width: 106px;
+    height: 23px;
+    left: 192px;
+    top: 3px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #979797;
+
+}
+
+.infoContentMajor {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 115px;
+}
+
+.infoContentMajorText {
+    position: absolute;
+    width: 47px;
+    height: 23px;
+    left: 94px;
+    top: 6px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+
+}
+
+.infoContentMajorSelectBox {
+    position: absolute;
+    width: 298px;
+    height: 30px;
+    left: 208px;
+    top: 3px;
+
+    background: #FFFFFF;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+
+}
+
+.infoContentMajorSelect {
+    position: absolute;
+    width: 293px;
+    height: 28px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+    border-radius: 0px;
+    border: hidden;
+    color: #000000;
+}
+
+.infoContentProfile {
+    position: absolute;
+    width: 579px;
+    height: 39px;
+    left: 11px;
+    top: 167px;
+
+}
+
+.infoContentProfileText {
+    position: absolute;
+    width: 89px;
+    height: 23px;
+    left: 52px;
+    top: 6px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: right;
+
+    color: #000000;
+}
+
+.infoContentProfileInputBox {
+    position: absolute;
+    width: 298px;
+    height: 30px;
+    left: 208px;
+    top: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #C2C2C2;
+    box-sizing: border-box;
+}
+
+.infoContentProfileInput {
+    position: absolute;
+    width: 280px;
+    height: 23px;
+    left: 7px;
+    top: 2px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+    border: hidden;
+
+    color: #000000;
+
+}
+
+.commentBox {
+    position: absolute;
+    width: 104px;
+    height: 40px;
+    left: 744px;
+    top: 216px;
+
+    background: #C4C4C4;
+}
+
+.commentBoxText {
+    position: absolute;
+    width: 50px;
+    height: 23px;
+    left: 27px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+.commentContent {
+    position: absolute;
+    width: 633px;
+    height: 717px;
+    left: 744px;
+    top: 256px;
+
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.commentContentText {
+    position: absolute;
+    width: 245px;
+    height: 46px;
+    left: 194px;
+    top: 336px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+
+}
+
+.lockedInfoImg {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 266px;
+    top: 229px;
+}
+
+.lockedInfoText {
+    position: absolute;
+    width: 228px;
+    height: 23px;
+    left: 202px;
+    top: 360px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+
+}

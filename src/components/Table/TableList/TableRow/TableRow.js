@@ -16,10 +16,6 @@ const TableRow = ({ user, info, setInfo }) => {
                     <span className="TableRowGrade">{user.grade}</span>
                     <span className="TableRowDetail" onClick={() => changeInfo(user.id)}><div className="pointRight"></div></span>
                 </div>
-
-
-
-
     )
 }
 

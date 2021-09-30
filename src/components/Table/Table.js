@@ -1,7 +1,7 @@
 import './Table.css'
-import TableList from "./TableList/TableList"
+import TableContent from "./TableList/TableContent"
 
-const Table = ({info, setInfo, tableList, search}) => (
+const Table = ({info, setInfo, search}) => (
     <div className="TableWrapper">
         <div className="TableHeaderWrapper">
             <div className="TableHeader">
@@ -9,7 +9,7 @@ const Table = ({info, setInfo, tableList, search}) => (
                 <div className="TableHeaderGrade">학년</div>
             </div>
             <div className="TableContent">
-                <TableList tableList={tableList} info={info} setInfo={setInfo} search={search}/>
+                <TableContent info={info} setInfo={setInfo} search={search}/>
             </div>
         </div>
     </div>

@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import './Modal.css'
-const Modal = ({modalOpen, setModalOpen, tableList, setTableList, setInfo}) => {
+import {useUserContext} from "../../context/UserContext";
+
+const Modal = ({modalOpen, setModalOpen, setInfo}) => {
+    const { tableList, setTableList } = useUserContext();
     const [inputs, setInputs] = useState({
         id: tableList.length+1,
         name: '',
         grade: '',
-        profileImg:''
     });
-    const {id, name, grade, profileImg} = inputs;
+    const {id, name, grade} = inputs;
 
     const closeModal = () => {
         setModalOpen(false)
@@ -15,7 +17,6 @@ const Modal = ({modalOpen, setModalOpen, tableList, setTableList, setInfo}) => {
             ...inputs,
             name:'',
             grade: '',
-            profileImg: ''
         })
     };
     // window.addEventListener('click', closeModal)
@@ -41,7 +42,7 @@ const Modal = ({modalOpen, setModalOpen, tableList, setTableList, setInfo}) => {
             }
         }
 
-        setTableList([...tableList, {...inputs, grade: parseInt(grade)}]);
+        setTableList([...tableList, {...inputs, grade: parseInt(grade), profileImg:'', email:'', phone:'', major:''}]);
         // setstate 는 비동기적으로 동작하므로,, 배열에 추가하더라도 바로 적용되지 X --> id: length+2 해주어야 함.
         setInputs({
             ...inputs,
@@ -68,11 +69,11 @@ const Modal = ({modalOpen, setModalOpen, tableList, setTableList, setInfo}) => {
                             <input type="text" name="grade" value={grade}
                                    className="modalBoxInput" onChange={onChange}/>
                         </div>
-                        <div className="modalBoxProfile">
-                            <div className="modalBoxProfileText">프로필</div>
-                            <input type="text" name="profileImg" value={profileImg}
-                                   className="modalBoxInput" onChange={onChange}/>
-                        </div>
+                        {/*<div className="modalBoxProfile">*/}
+                        {/*    <div className="modalBoxProfileText">프로필</div>*/}
+                        {/*    <input type="text" name="profileImg" value={profileImg}*/}
+                        {/*           className="modalBoxInput" onChange={onChange}/>*/}
+                        {/*</div>*/}
                     </div>
                     <div className="closeModal" onClick={closeModal}>
                         <div className="closeModalText">닫기</div>
