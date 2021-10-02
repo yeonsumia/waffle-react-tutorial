@@ -1,0 +1,115 @@
+.commentBox {
+    position: absolute;
+    width: 104px;
+    height: 40px;
+    left: 744px;
+    top: 216px;
+
+    background: #C4C4C4;
+}
+
+.commentBoxText {
+    position: absolute;
+    width: 50px;
+    height: 23px;
+    left: 27px;
+    top: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+
+    color: #000000;
+
+}
+
+.commentContentText {
+    position: absolute;
+    width: 245px;
+    height: 46px;
+    left: 194px;
+    top: 336px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #000000;
+
+}
+
+.commentInput {
+    position: absolute;
+    width: 536px;
+    height: 48px;
+    left: 743px;
+    top: 925px;
+
+    background: #F3F3F3;
+    border: 1px solid #BDBDBD;
+    box-sizing: border-box;
+    border-radius: 8px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    padding-left: 12px;
+
+}
+
+.commentInput::placeholder {
+    position: absolute;
+    width: 141px;
+    height: 23px;
+    left: 10px;
+    top: 12px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #8B8B8B;
+}
+
+.commentButton {
+    position: absolute;
+    width: 90px;
+    height: 48px;
+    left: 1287px;
+    top: 925px;
+
+    background: #AFAFAF;
+    border-radius: 8px;
+}
+
+.commentButtonText {
+    position: absolute;
+    width: 34px;
+    left: 28px;
+    top: 12px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #000000;
+}

@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import {useUserContext} from "../context/UserContext";
-import {Redirect} from "react-router-dom";
-
+import {Redirect, useParams} from "react-router-dom";
+import API from "../api/API";
 const Auth = (SpecialComponent, option, adminRoute=null) => {
 
     /*
@@ -10,16 +9,47 @@ const Auth = (SpecialComponent, option, adminRoute=null) => {
                    false -> 로그인한 유저는 출입이 불가능한 페이지
     */
     const AuthenticateCheck = (props) => {
-        const {loginCheck} = useUserContext();
-        const sessionLoginCheck = sessionStorage.getItem('loginCheck');
+        const loginToken = localStorage.getItem('loginToken');
+
+        const config = {
+            headers: { Authorization: `Bearer ${loginToken}` }
+        };
+        const params = useParams();
+
         useEffect(() => {
-            if (!loginCheck && sessionLoginCheck !== 'true' && option) {
-                props.history.push('/login');
+            async function loginCheckByToken () {
+                if(sessionStorage.getItem('loginCheck') !== 'true') {
+                    await API.get("/student/1", config)
+                        .then(() => {
+                            sessionStorage.setItem('loginCheck', 'true');
+                            if(params.hasOwnProperty('id')) props.history.push('/students');
+                        })
+                        .catch(() => {
+                            if(option) props.history.push('/login');
+                        })
+                }
             }
-        }, [loginCheck, props.history, sessionLoginCheck]);
+            async function accessStudentLoginCheckByToken (id) {
+                if(sessionStorage.getItem('loginCheck') !== 'true') {
+                    await API.get(`/student/${id}`, config)
+                        .then(() => {
+                            sessionStorage.setItem('loginCheck', 'true');
+                        })
+                        .catch(() => {
+                            loginCheckByToken();
+                        })
+                }
+            }
+            if(params.hasOwnProperty('id')) {
+                const id = parseInt(params.id);
+                accessStudentLoginCheckByToken(id);
+            }
+            else loginCheckByToken();
+
+        }, [loginToken]);
 
         return (
-            SpecialComponent != null? <SpecialComponent /> : sessionLoginCheck? <Redirect to='/students'/> : <Redirect to='/login'/>
+            SpecialComponent != null? <SpecialComponent /> : sessionStorage.getItem('loginCheck') === 'true'? <Redirect to='/students'/> : <Redirect to='/login'/>
 
         )
 

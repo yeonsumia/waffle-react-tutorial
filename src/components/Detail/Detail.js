@@ -1,29 +1,28 @@
 import { useState, useEffect } from 'react'
 import './Detail.css'
-import {useUserContext} from "../../context/UserContext";
 import toBioIcon from '../../resource/toBio.png';
 import {Link} from 'react-router-dom';
 
-const Detail = ({info}) => {
-    const {tableList} = useUserContext();
+const Detail = ({info, userList}) => {
     const [inputs, setInputs] = useState({
         id: '',
         name: '',
         grade: '',
-        profileImg: '',
+        profile_img: ''
     });
-    const {id, name, grade, profileImg} = inputs;
+    const {id, name, grade, profile_img} = inputs;
+
     useEffect(() => {
-        if(info !== 0){
+        if(info !== 0) {
+            const student = userList.find(user => user.id === info)
             setInputs({
-                ...inputs,
-                id:  "/student/" + info,
-                name: tableList.find(user => user.id === info).name,
-                grade: tableList.find(user => user.id === info).grade,
-                profileImg: tableList.find(user => user.id === info).profileImg
+                id: "/student/".concat(info),
+                name: student.name,
+                grade: student.grade,
+                profile_img: student.profile_img
             })
         }
-    }, [info, inputs, tableList]);
+    }, [userList])
 
     const onChange = (e) => {
         const {value, name} = e.target;
@@ -33,25 +32,6 @@ const Detail = ({info}) => {
         });
     }
 
-    // const onToggle = () => {
-    //     const gradeList = ['1','2','3']
-    //     if(name.length > 3 || name.length < 2 || gradeList.find(num => num === grade) === undefined ){
-    //         alert("이름 또는 학년이 올바르지 않습니다.")
-    //         return null;
-    //     }
-    //     setTableList(
-    //         tableList.map(user =>
-    //             user.id === info ? {...user, name, grade:parseInt(grade), profileImg}: user)
-    //     )
-    // }
-    //
-    // const onRemove = () => {
-    //     setTableList(
-    //         tableList.filter(user => user.id !== info)
-    //     )
-    //     setInputs({name:'', grade: '', profileImg: ''})
-    //     setInfo(0)
-    // }
     const initialImg ="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-1024.png"
     return (
     info !== 0 ?
@@ -63,24 +43,19 @@ const Detail = ({info}) => {
                     </div>
                 </Link>
             </div>
-            <img className="DetailUserImg" src= {tableList.find(user => user.id === info).profileImg !== '' ? tableList.find(user => user.id === info).profileImg :initialImg} alt="" />
+            <img className="DetailUserImg" src= { profile_img != null ? profile_img :initialImg} alt="" />
 
             <div className="DetailUserContent">
                 <div className="DetailUserContentName">
                     <div className="DetailUserContentText">이름</div>
                     <input type="text" name="name" value={name}
-                           className="DetailUserContentInput" onChange={onChange}/>
+                           className="DetailUserContentInput" onChange={onChange} disabled/>
                 </div>
 
                 <div className="DetailUserContentGrade">
                     <div className="DetailUserContentText">학년</div>
                     <input type="text" name="grade" value={grade}
-                           className="DetailUserContentInput" onChange={onChange}/>
-                </div>
-                <div className="DetailUserContentProfile">
-                    <div className="DetailUserContentProfileText">프로필</div>
-                    <input type="text" name="profile" value={profileImg}
-                           className="DetailUserContentInput" onChange={onChange}/>
+                           className="DetailUserContentInput" onChange={onChange} disabled/>
                 </div>
             </div>
 

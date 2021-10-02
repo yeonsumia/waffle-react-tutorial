@@ -1,13 +1,12 @@
 import './Dashboard.css'
 import {PieChart, Pie} from "recharts";
-import {useUserContext} from "../../context/UserContext";
 
-const Dashboard = ({users}) => {
-    const {tableList} = useUserContext();
-    const firstGradeNum = tableList.filter(user => user.grade === 1).length;
-    const secondGradeNum = tableList.filter(user => user.grade === 2).length;
-    const thirdGradeNum = tableList.filter(user => user.grade === 3).length;
-    const totalNum = tableList.length;
+const Dashboard = ({userList}) => {
+
+    const firstGradeNum = userList.filter(user => user.grade === 1).length;
+    const secondGradeNum = userList.filter(user => user.grade === 2).length;
+    const thirdGradeNum = userList.filter(user => user.grade === 3).length;
+    const totalNum = userList.length;
     const data = [
         {name: '1학년', value: firstGradeNum},
         {name: '2학년', value: secondGradeNum},
@@ -15,7 +14,7 @@ const Dashboard = ({users}) => {
     ];
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-        const radius = innerRadius + (outerRadius - innerRadius) * 0.15;
+        const radius = innerRadius + (outerRadius - innerRadius) * 0.25;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 

@@ -1,8 +1,8 @@
 import './StudentPage.css'
 import {useParams} from "react-router-dom";
-import {useUserContext} from '../../context/UserContext'
 import {Link} from 'react-router-dom'
 import Confirm from '../../components/Confirm/Confirm'
+import Comment from "../../components/Comment/Comment";
 import NumberFormat from 'react-number-format';
 import toBackImg from '../../resource/toBack.png';
 import lockImg from '../../resource/lock.png'
@@ -11,43 +11,80 @@ import deleteImg from '../../resource/delete.png'
 import saveImg from '../../resource/save.png'
 import lockProfileImg from '../../resource/lockProfile.png'
 import {useState, useEffect} from "react";
+import API from "../../api/API";
+import {toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudentPage = () => {
-    const {tableList, setTableList} = useUserContext();
     const params = useParams();
     const id = parseInt(params.id);
-    const student = tableList.find(user => user.id === id);
+    const loginToken = localStorage.getItem('loginToken');
+    const config = {
+        headers: { Authorization: `Bearer ${loginToken}` }
+    };
+    const [student, setStudent] = useState([]);
+    const [event, setEvent] = useState(false);
+    useEffect(() => {
+        async function getUser() {
+            console.log(loginToken)
+            await API.get(`/student/${id}`, config)
+                .then(({data}) => {
+                    setStudent(data)
+                })
+        }
+        getUser();
+    }, [loginToken, setStudent, id])
     const [locked, setLocked] = useState(false);
     const [inputs, setInputs] = useState({
-        profileImg: '',
+        profile_img: '',
         email: '',
         phone: '',
-        major: ''
+        major: '',
     });
 
     useEffect(() => {
         setInputs({
-            profileImg: student.profileImg,
-            email: student.email.split('@')[0],
+            profile_img: student.profile_img,
+            email: !!(student.email)? student.email.split('@')[0] : null,
             phone: student.phone,
-            major: student.major
-        });
-        setLocked(student.locked);
-    }, [tableList, inputs, student.email, student.major, student.phone, student.profileImg, student.locked]);
+            major: student.major,
+        })
+        setLocked(student.locked)
+    }, [student.email, student.major, student.phone, student.profile_img, student.locked]);
+    const {profile_img, email, phone, major} = inputs;
 
-    const {profileImg, email, phone, major} = inputs;
+    console.log(major)
     const initialImg ="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-1024.png";
 
     const [deleteModal,setDeleteModal] = useState(false);
-    const onClick = () => {
-        setTableList(
-            tableList.map(user =>
-                user.id === id ? {...user, locked: !locked}: user)
-        );
-        // student.locked 는 life cycle 종료 뒤에 업데이트됨.
-        // locked state 변수는 마운트될때 업데이트됨.
-        // console.log(locked)
+
+    const lock = async () => {
+        await API.post(`/student/${id}/lock`, {}, config)
+            .then(res => res.data)
+            .then(data => {
+                if(data.success) {
+                    toast.success("계정을 잠그었습니다.");
+
+                    setLocked(true);
+                    setEvent(e => !e);
+                }
+            })
+            .catch(data => toast.error(data.message))
     }
+    const unlock = async () => {
+        await API.post(`/student/${id}/unlock`, {}, config)
+            .then(res => res.data)
+            .then(data => {
+                if(data.success) {
+                    // comment 달기
+                    // alert("계정을 열었습니다.")
+                    setLocked(false);
+                    setEvent(e => !e);
+                }
+            })
+            .catch(data => toast.error(data.message))
+    }
+
     const onChange = (e) => {
         const {value, name} = e.target;
         setInputs({
@@ -57,19 +94,31 @@ const StudentPage = () => {
         // auto format 으로 인해 010- 이 추가될 때 커서 맨 뒤로 이동시키기.
         e.target.selectionStart = e.target.value.length;
     }
-    const onToggle = () => {
+    const onToggle = async () => {
         if(email.includes("@") || email.includes(" ")){
-            alert("이메일 주소의 형식이 올바르지 않습니다.")
+            toast.error("이메일 주소의 형식이 올바르지 않습니다.")
             return null;
         }
         if(phone.length !== 13){
-            alert("전화번호의 형식이 올바르지 않습니다.")
+            toast.error("전화번호의 형식이 올바르지 않습니다.")
             return null;
         }
-        setTableList(
-            tableList.map(user =>
-                user.id === id ? {...user, profileImg, email: email+"@waffle.hs.kr", phone, major}: user)
-        )
+
+        await API.patch(`/student/${id}`, {
+            profile_img: profile_img,
+            email: email.concat("@waffle.hs.kr"),
+            phone: phone,
+            major: major
+        }, config)
+            .then(res => res.data)
+            .then(data => {
+                if(data.success) {
+                    // comment 달기
+                    toast.success("수정이 완료되었습니다.")
+                    setEvent(e => !e);
+                }
+            })
+            .catch(data => toast.error(data.message))
     }
 
 
@@ -103,7 +152,7 @@ const StudentPage = () => {
                     <div className="ToBackText">학생 목록 페이지로</div>
                 </div>
                 <div className="StudentImgWrapper">
-                    <img className="StudentImg" src={profileImg !== ''? profileImg: initialImg} alt="" />
+                    <img className="StudentImg" src={profile_img != null? profile_img: initialImg} alt="" />
                 </div>
                 <div className="StudentInfoWrapper">
                     <div className="StudentInfoNameWrapper">
@@ -116,7 +165,7 @@ const StudentPage = () => {
                     </div>
                 </div>
                 <div className="lockIconWrapper">
-                    <div className="lockIcon" onClick={onClick}>
+                    <div className="lockIcon" onClick={locked? unlock: lock}>
                         <div className="lockIconImgWrapper">
                             <img src={locked? unlockImg:lockImg} className="lockIconImg" alt="" />
                         </div>
@@ -163,6 +212,7 @@ const StudentPage = () => {
                             <div className="infoContentMajorText">전공</div>
                             <div className="infoContentMajorSelectBox">
                                 <select className="infoContentMajorSelect" value={major} name="major" onChange={onChange}>
+                                    <option value="" hidden></option>
                                     <option value="frontend">frontend</option>
                                     <option value="backend">backend</option>
                                     <option value="android">android</option>
@@ -178,22 +228,16 @@ const StudentPage = () => {
                             </div>
                         </div>
                     </div>
-                    {locked?
+                    {locked &&
                         <div className="lockedInfoContent">
                             <img src={lockProfileImg} className="lockedInfoImg" alt=""/>
                             <div className="lockedInfoText">수정하려면 잠금을 해제하세요.</div>
                         </div>
-                        : null}
-
+                    }
                 </div>
-                <div className="commentBox">
-                    <div className="commentBoxText">코멘트</div>
-                </div>
-                <div className="commentContent">
-                    <div className="commentContentText">과제 3에서 구현</div>
-                </div>
-            <Confirm deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
-
+                <Comment id={id} event={event} setEvent={setEvent} />
+            <Confirm deleteModal={deleteModal} setDeleteModal={setDeleteModal} id={id} />
+            <ToastContainer autoClose={2500} position="top-right" />
         </div>
     )
 }

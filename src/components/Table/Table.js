@@ -1,5 +1,5 @@
 import './Table.css'
-import TableContent from "./TableList/TableContent"
+import TableContent from "./TableContent/TableContent"
 
 const Table = ({info, setInfo, search}) => (
     <div className="TableWrapper">

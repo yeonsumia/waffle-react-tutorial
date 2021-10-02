@@ -1,0 +1,45 @@
+.commentRowWrapper {
+    position: relative;
+    margin-top: 10px;
+    height: 59px;
+    width: 596px;
+    left: 0px;
+    top: 0px;
+    border: 1px solid #C2C2C2;
+    border-radius: 8px;
+}
+
+.commentRowText {
+    position: absolute;
+    width: 483px;
+    height: 38px;
+    left: 12px;
+    top: 10px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    /* identical to box height */
+
+
+    color: #000000;
+}
+
+.commentRowTime {
+    position: absolute;
+    width: 96px;
+    height: 15px;
+    left: 496px;
+    top: 4px;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: right;
+
+    color: #B9B9B9;
+}

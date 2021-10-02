@@ -3,19 +3,29 @@ import deleteModalImg from "../../resource/deleteModal.png";
 import cancelImg from "../../resource/cancel.png";
 import deleteClearImg from "../../resource/deleteClear.png";
 import {useUserContext} from "../../context/UserContext";
-import {useParams, Link} from "react-router-dom";
-const Confirm = ({deleteModal, setDeleteModal}) => {
-    const {tableList, setTableList} = useUserContext();
-    const {id} = useParams();
-    const onRemove = () => {
-        setTableList(
-            tableList.filter(user => user.id !== parseInt(id))
-        );
-        setDeleteModal(value => !value);
+import {Link} from "react-router-dom";
+import API from '../../api/API';
+import {toast, ToastContainer} from "react-toastify";
 
+const Confirm = ({deleteModal, setDeleteModal, id}) => {
+    const {loginToken} = useUserContext();
+    const config = {
+        headers: { Authorization: `Bearer ${loginToken}` }
+    };
+    const onRemove = async () => {
+        await API.delete(`/student/${id}`, config)
+            .then(({data}) => {
+                if(data.success) {
+                    toast.success("삭제가 완료되었습니다.")
+                    setDeleteModal(value => !value);
+                }
+            })
+            .catch(({data}) => {
+                toast.error(data.message)
+            })
     }
     return (
-        deleteModal ?
+        deleteModal &&
             <div className="DeleteModalWrapper">
                 <div className="DeleteModal">
                     <div className="DeleteModalIconWrapper">
@@ -42,11 +52,8 @@ const Confirm = ({deleteModal, setDeleteModal}) => {
                         </Link>
                     </div>
                 </div>
-
+                <ToastContainer autoClose={2500} position="top-right" />
             </div>
-            :
-            null
-
     )
 }
 
