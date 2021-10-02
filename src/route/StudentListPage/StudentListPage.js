@@ -16,13 +16,10 @@ const StudentListPage = () => {
     const [info, setInfo] = useState(0);
     const [search, setSearch] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
-    const [cookie, setCookie] = useState(false);
-    const [showPopUp, setShowPopUp] = useState(false);
     const [userList, setUserList] = useState([]);
     const config = {
         headers: { Authorization: `Bearer ${loginToken}` }
     };
-
 
     useEffect(() => {
         toast.success("환영합니다!");
@@ -35,15 +32,15 @@ const StudentListPage = () => {
                     setUserList(data)
                 })
         }
-        getUsers();
 
+        getUsers();
     }, [info, loginToken])
     return (
         <div className="StudentListPageWrapper">
             <Header />
             <Dashboard userList={userList} />
             <ControlBar search={search} setSearch={setSearch} setModalOpen={setModalOpen}/>
-            <Table info={info} setInfo={setInfo} search={search} />
+            <Table info={info} setInfo={setInfo} search={search} userList={userList} />
             <SeparateBar />
             <Detail info={info} userList={userList} />
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} setInfo={setInfo}/>

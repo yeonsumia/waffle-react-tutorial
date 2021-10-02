@@ -1,6 +1,5 @@
 import './CommentContent.css';
 import API from "../../../api/API";
-import {useUserContext} from "../../../context/UserContext";
 import {useEffect, useRef, useState} from "react";
 import CommentRow from "./CommentRow/CommentRow";
 import {toast, ToastContainer} from "react-toastify";

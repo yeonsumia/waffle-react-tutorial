@@ -1,4 +1,4 @@
-import {withCookies, useCookies} from "react-cookie";
+import {useCookies} from "react-cookie";
 import PopUpModal from "./PopUpModal/PopUpModal";
 import {useEffect, useState} from "react";
 

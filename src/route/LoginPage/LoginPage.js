@@ -7,7 +7,6 @@ import {toast, ToastContainer} from "react-toastify";
 
 const LoginPage = () => {
     const history = useHistory();
-
     useEffect(() => {
         const loginToken = localStorage.getItem('loginToken');
         const config = {

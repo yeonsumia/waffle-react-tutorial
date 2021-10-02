@@ -2,11 +2,10 @@ import './Comment.css';
 import CommentContent from "./CommentContent/CommentContent";
 import {useState} from "react";
 import API from "../../api/API";
-import {useUserContext} from "../../context/UserContext";
 import {toast, ToastContainer} from "react-toastify";
 
 const Comment = ({id, event, setEvent}) => {
-    const {loginToken} = useUserContext();
+    const loginToken = localStorage.getItem('loginToken');
     const config = {
         headers: { Authorization: `Bearer ${loginToken}` }
     };
@@ -22,7 +21,7 @@ const Comment = ({id, event, setEvent}) => {
                     setEvent(e => !e);
                 }
             })
-            .catch(({data}) => toast.error(data.message))
+            .catch(({data}) => toast.error("Unauthorized Access"))
     }
     const onKeyPress = (e) => {
         if(e.key === 'Enter') onClick();
