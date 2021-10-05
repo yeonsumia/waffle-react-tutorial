@@ -192,6 +192,7 @@ input:focus { outline: none; }
     background: #C4C4C4;
     border-radius: 10px;
 
+    cursor: pointer;
 }
 
 .lockIconImgWrapper {
@@ -249,6 +250,8 @@ input:focus { outline: none; }
 
     background: #FCD8D8;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 .lockedDeleteIcon {
     position: absolute;
@@ -315,6 +318,8 @@ input:focus { outline: none; }
 
     background: #D3FFDD;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .lockedSaveIcon {

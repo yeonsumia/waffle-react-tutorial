@@ -94,6 +94,8 @@
 
     background: #AFAFAF;
     border-radius: 8px;
+
+    cursor: pointer;
 }
 
 .commentButtonText {

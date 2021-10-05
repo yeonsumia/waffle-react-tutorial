@@ -92,7 +92,10 @@
 
     background: #D3EAFF;
     border-radius: 10px;
+
+    cursor: pointer;
 }
+
 .DeleteModalCancelIconWrapper {
     position: absolute;
     width: 24px;
@@ -149,6 +152,8 @@
 
     background: #FCD8D8;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .DeleteModalDeleteIconWrapper {

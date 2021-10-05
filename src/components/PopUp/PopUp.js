@@ -9,7 +9,7 @@ const PopUp = () => {
     const datetime = new Date();
     const newDatetime = new Date();
     useEffect(() => {
-       if(cookies.oneMinuteLater !== undefined){
+       if(cookies.twoFourHoursLater !== undefined){
            setPopUpModal(false)
        }
     }, [])
@@ -17,9 +17,9 @@ const PopUp = () => {
     const modifyCookie = () => {
         if(popUpLater){
             newDatetime.setHours(datetime.getHours() + 24)
-            setCookie('oneMinuteLater', true, { expires: newDatetime })
+            setCookie('twoFourHoursLater', true, { expires: newDatetime })
         } else {
-            removeCookie('oneMinuteLater')
+            removeCookie('twoFourHoursLater')
         }
         setPopUpModal(false)
     }

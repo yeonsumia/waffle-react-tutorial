@@ -8,33 +8,39 @@ import SeparateBar from "../../components/SeparateBar/SeparateBar";
 import Detail from "../../components/Detail/Detail";
 import Modal from "../../components/Modal/Modal";
 import API from "../../api/API";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import PopUp from "../../components/PopUp/PopUp";
+import {useUserContext} from "../../context/UserContext";
 
 const StudentListPage = () => {
-    const loginToken = localStorage.getItem('loginToken');
     const [info, setInfo] = useState(0);
     const [search, setSearch] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [userList, setUserList] = useState([]);
-    const config = {
-        headers: { Authorization: `Bearer ${loginToken}` }
-    };
+    const {loginToken} = useUserContext();
 
     useEffect(() => {
-        toast.success("환영합니다!");
-    }, [])
-
-    useEffect(() => {
-        async function getUsers() {
-            await API.get("/student", config)
+        // 새로고침 시에는 state 변수가 모두 초기화되므로 여기선 storage 에 직접 접근해야함.
+        if(loginToken === "") {
+            const token = localStorage.getItem('loginToken');
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            API.get("/student")
                 .then(({data}) => {
-                    setUserList(data)
+                    setUserList(data);
+                    toast.success("환영합니다!");
                 })
+                .catch(() => toast.error("명단을 불러올 수 없습니다."))
+        } else {
+            API.get("/student")
+                .then(({data}) => {
+                    setUserList(data);
+                    toast.success("환영합니다!");
+                })
+                .catch(() => toast.error("명단을 불러올 수 없습니다."))
         }
 
-        getUsers();
-    }, [info, loginToken])
+    }, []);
+
     return (
         <div className="StudentListPageWrapper">
             <Header />
@@ -44,7 +50,6 @@ const StudentListPage = () => {
             <SeparateBar />
             <Detail info={info} userList={userList} />
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} setInfo={setInfo}/>
-            <ToastContainer autoClose={2500} position="top-right" />
             <PopUp />
         </div>
     )

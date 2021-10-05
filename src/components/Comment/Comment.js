@@ -2,30 +2,31 @@ import './Comment.css';
 import CommentContent from "./CommentContent/CommentContent";
 import {useState} from "react";
 import API from "../../api/API";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 const Comment = ({id, event, setEvent}) => {
-    const loginToken = localStorage.getItem('loginToken');
-    const config = {
-        headers: { Authorization: `Bearer ${loginToken}` }
-    };
     const [content, setContent] = useState('');
     const onChange = (e) => {
         setContent(e.target.value);
     }
     const onClick = () => {
-        API.post(`/student/${id}/comment`, {content: content}, config)
-            .then(({data}) => {
-                if(data.success){
-                    setContent('');
-                    setEvent(e => !e);
-                }
-            })
-            .catch(({data}) => toast.error("Unauthorized Access"))
+        if(content === "") toast.error("댓글 내용을 입력해주세요.")
+        else {
+            API.post(`/student/${id}/comment`, {content: content})
+                .then(({data}) => {
+                    if(data.success){
+                        setContent('');
+                        setEvent(e => !e);
+                    }
+                })
+                .catch(() => toast.error("Unauthorized Access"))
+        }
     }
-    const onKeyPress = (e) => {
-        if(e.key === 'Enter') onClick();
+
+    const onSubmit = (e) => {
+        e.preventDefault();
     }
+
     return (
         <>
             <div className="commentBox">
@@ -33,12 +34,12 @@ const Comment = ({id, event, setEvent}) => {
             </div>
             <CommentContent id={id} event={event} />
 
-            <input type="text" className="commentInput" value={content} onChange={onChange} onKeyPress={onKeyPress} placeholder="댓글을 작성하세요."/>
-
-            <div className="commentButton" onClick={onClick}>
-                <div className="commentButtonText">작성</div>
-            </div>
-            <ToastContainer autoClose={2500} position="top-right" />
+            <form onSubmit={onSubmit}>
+                <input type="text" className="commentInput" value={content} onChange={onChange} placeholder="댓글을 작성하세요."/>
+                <button className="commentButton" onClick={onClick}>
+                    <div className="commentButtonText">작성</div>
+                </button>
+            </form>
         </>
     )
 }

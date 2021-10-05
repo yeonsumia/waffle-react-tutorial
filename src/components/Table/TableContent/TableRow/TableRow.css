@@ -25,6 +25,8 @@
     margin-left:365px;
 
     background: #C4C4C4;
+
+    cursor: pointer;
 }
 .pointRight {
     display: block;
@@ -34,6 +36,8 @@
     border-top: 2px solid #000;
     border-left: 2px solid #000;
     transform: rotate(135deg);
+
+    cursor: pointer;
 }
 
 
@@ -44,6 +48,8 @@
     height: 15px;
     background-color: black;
     transform: rotate(-45deg) translate(5px, 2px);
+
+    cursor: pointer;
 }
 
 .pointLeft {
@@ -67,6 +73,8 @@
 
 .TableRowDetail {
     display: none;
+
+    cursor: pointer;
 }
 
 .Selected {

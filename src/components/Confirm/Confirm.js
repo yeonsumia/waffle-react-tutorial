@@ -2,22 +2,19 @@ import './Confirm.css'
 import deleteModalImg from "../../resource/deleteModal.png";
 import cancelImg from "../../resource/cancel.png";
 import deleteClearImg from "../../resource/deleteClear.png";
-import {useUserContext} from "../../context/UserContext";
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import API from '../../api/API';
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 const Confirm = ({deleteModal, setDeleteModal, id}) => {
-    const {loginToken} = useUserContext();
-    const config = {
-        headers: { Authorization: `Bearer ${loginToken}` }
-    };
-    const onRemove = async () => {
-        await API.delete(`/student/${id}`, config)
+    const history= useHistory();
+    const onRemove = () => {
+        API.delete(`/student/${id}`)
             .then(({data}) => {
                 if(data.success) {
                     toast.success("삭제가 완료되었습니다.")
                     setDeleteModal(value => !value);
+                    history.push('/students');
                 }
             })
             .catch(({data}) => {
@@ -42,17 +39,14 @@ const Confirm = ({deleteModal, setDeleteModal, id}) => {
                         </div>
                     </div>
                     <div className="DeleteModalDeleteWrapper">
-                        <Link to="/students" onClick={onRemove}>
-                            <div className="DeleteModalDelete">
-                                <div className="DeleteModalDeleteIconWrapper">
-                                    <img className="DeleteModalDeleteIcon" src={deleteClearImg} alt="" />
-                                </div>
-                                <div className="DeleteModalDeleteText">삭제</div>
+                        <div className="DeleteModalDelete" onClick={onRemove}>
+                            <div className="DeleteModalDeleteIconWrapper">
+                                <img className="DeleteModalDeleteIcon" src={deleteClearImg} alt="" />
                             </div>
-                        </Link>
+                            <div className="DeleteModalDeleteText">삭제</div>
+                        </div>
                     </div>
                 </div>
-                <ToastContainer autoClose={2500} position="top-right" />
             </div>
     )
 }

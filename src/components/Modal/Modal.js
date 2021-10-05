@@ -1,14 +1,9 @@
 import React, { useState } from 'react'
 import './Modal.css'
 import API from "../../api/API";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 const Modal = ({modalOpen, setModalOpen, setInfo}) => {
-    const loginToken = localStorage.getItem('loginToken');
-    const config = {
-        headers: { Authorization: `Bearer ${loginToken}` }
-    }
-
     const [inputs, setInputs] = useState({
         name: '',
         grade: '',
@@ -31,10 +26,9 @@ const Modal = ({modalOpen, setModalOpen, setInfo}) => {
         });
     }
 
-    const onCreate = async () => {
-        await API.post("/student", {...inputs, grade: parseInt(grade)}, config)
-            .then(res => res.data)
-            .then(data => {
+    const onCreate = () => {
+        API.post("/student", {...inputs, grade: parseInt(grade)})
+            .then(({data}) => {
                 setInfo(data.id)
                 setInputs({
                     name:'',
@@ -42,7 +36,7 @@ const Modal = ({modalOpen, setModalOpen, setInfo}) => {
                 })
                 setModalOpen(false)
             })
-            .catch(data => {
+            .catch(({data}) => {
                 toast.error(data.message)
             })
     }
@@ -71,7 +65,6 @@ const Modal = ({modalOpen, setModalOpen, setInfo}) => {
                     </div>
                 </div>
             }
-            <ToastContainer autoClose={2500} position="top-right" />
         </div>
     )
 }

@@ -6,7 +6,7 @@ const TableContent = ({ info, setInfo, search, userList }) => {
     return (
         userList.length !== 0 ?
         <div className="TableContentWrapper">
-            {userList.filter(user => user.name.includes(search)).map(user => (
+            {userList.filter(user => user.name.includes(search)).sort((a,b) => a.id - b.id).map(user => (
                 <TableRow key={user.id} user={user} info={info} setInfo={setInfo} />
             ))}
         </div>

@@ -2,7 +2,6 @@ import './Dashboard.css'
 import {PieChart, Pie} from "recharts";
 
 const Dashboard = ({userList}) => {
-
     const firstGradeNum = userList.filter(user => user.grade === 1).length;
     const secondGradeNum = userList.filter(user => user.grade === 2).length;
     const thirdGradeNum = userList.filter(user => user.grade === 3).length;

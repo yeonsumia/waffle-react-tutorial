@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {Redirect, useParams} from "react-router-dom";
 import API from "../api/API";
+import {useUserContext} from "../context/UserContext";
 const Auth = (SpecialComponent, option, adminRoute=null) => {
 
     /*
@@ -9,19 +10,17 @@ const Auth = (SpecialComponent, option, adminRoute=null) => {
                    false -> 로그인한 유저는 출입이 불가능한 페이지
     */
     const AuthenticateCheck = (props) => {
-        const loginToken = localStorage.getItem('loginToken');
-
-        const config = {
-            headers: { Authorization: `Bearer ${loginToken}` }
-        };
         const params = useParams();
-
+        const {loginToken, setLoginToken} = useUserContext();
         useEffect(() => {
-            async function loginCheckByToken () {
-                if(sessionStorage.getItem('loginCheck') !== 'true') {
-                    await API.get("/student/1", config)
+            function loginCheckByToken () {
+                if(loginToken === "") {
+                    const token = localStorage.getItem('loginToken');
+                    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    console.log("token")
+                    API.get("/student/1")
                         .then(() => {
-                            sessionStorage.setItem('loginCheck', 'true');
+                            setLoginToken(token);
                             if(params.hasOwnProperty('id')) props.history.push('/students');
                         })
                         .catch(() => {
@@ -29,12 +28,14 @@ const Auth = (SpecialComponent, option, adminRoute=null) => {
                         })
                 }
             }
-            async function accessStudentLoginCheckByToken (id) {
-                if(sessionStorage.getItem('loginCheck') !== 'true') {
-                    await API.get(`/student/${id}`, config)
+            function accessStudentLoginCheckByToken (id) {
+                if(loginToken === "") {
+                    const token = localStorage.getItem('loginToken');
+                    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    API.get(`/student/${id}`)
                         .then(() => {
-                            sessionStorage.setItem('loginCheck', 'true');
-                        })
+                            setLoginToken(token);
+                    })
                         .catch(() => {
                             loginCheckByToken();
                         })
@@ -46,10 +47,10 @@ const Auth = (SpecialComponent, option, adminRoute=null) => {
             }
             else loginCheckByToken();
 
-        }, [loginToken]);
+        }, []);
 
         return (
-            SpecialComponent != null? <SpecialComponent /> : sessionStorage.getItem('loginCheck') === 'true'? <Redirect to='/students'/> : <Redirect to='/login'/>
+            SpecialComponent != null? <SpecialComponent /> : loginToken !== ""? <Redirect to='/students'/> : <Redirect to='/login'/>
 
         )
 

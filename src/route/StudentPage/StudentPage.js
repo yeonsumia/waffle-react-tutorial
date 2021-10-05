@@ -12,28 +12,34 @@ import saveImg from '../../resource/save.png'
 import lockProfileImg from '../../resource/lockProfile.png'
 import {useState, useEffect} from "react";
 import API from "../../api/API";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {useUserContext} from "../../context/UserContext";
 
 const StudentPage = () => {
     const params = useParams();
     const id = parseInt(params.id);
-    const loginToken = localStorage.getItem('loginToken');
-    const config = {
-        headers: { Authorization: `Bearer ${loginToken}` }
-    };
     const [student, setStudent] = useState([]);
     const [event, setEvent] = useState(false);
+    const {loginToken} = useUserContext();
+
     useEffect(() => {
-        async function getUser() {
-            console.log(loginToken)
-            await API.get(`/student/${id}`, config)
+        if(loginToken === "") {
+            const token = localStorage.getItem('loginToken');
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            API.get(`/student/${id}`)
                 .then(({data}) => {
                     setStudent(data)
                 })
+                .catch(() => toast.error("학생을 불러올 수 없습니다."))
+        } else {
+            API.get("/student")
+                .then(({data}) => {
+                    setStudent(data)
+                })
+                .catch(() => toast.error("학생을 불러올 수 없습니다."))
         }
-        getUser();
-    }, [loginToken, setStudent, id])
+    }, [setStudent, id])
     const [locked, setLocked] = useState(false);
     const [inputs, setInputs] = useState({
         profile_img: '',
@@ -41,25 +47,23 @@ const StudentPage = () => {
         phone: '',
         major: '',
     });
-
+    const {profile_img, email, phone, major} = inputs;
     useEffect(() => {
         setInputs({
             profile_img: student.profile_img,
             email: !!(student.email)? student.email.split('@')[0] : null,
             phone: student.phone,
-            major: student.major,
+            major: student.email,
         })
         setLocked(student.locked)
     }, [student.email, student.major, student.phone, student.profile_img, student.locked]);
-    const {profile_img, email, phone, major} = inputs;
 
-    console.log(major)
     const initialImg ="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-1024.png";
 
     const [deleteModal,setDeleteModal] = useState(false);
 
-    const lock = async () => {
-        await API.post(`/student/${id}/lock`, {}, config)
+    const lock = () => {
+        API.post(`/student/${id}/lock`, {})
             .then(res => res.data)
             .then(data => {
                 if(data.success) {
@@ -71,8 +75,8 @@ const StudentPage = () => {
             })
             .catch(data => toast.error(data.message))
     }
-    const unlock = async () => {
-        await API.post(`/student/${id}/unlock`, {}, config)
+    const unlock = () => {
+        API.post(`/student/${id}/unlock`, {})
             .then(res => res.data)
             .then(data => {
                 if(data.success) {
@@ -94,7 +98,7 @@ const StudentPage = () => {
         // auto format 으로 인해 010- 이 추가될 때 커서 맨 뒤로 이동시키기.
         e.target.selectionStart = e.target.value.length;
     }
-    const onToggle = async () => {
+    const onToggle = () => {
         if(email.includes("@") || email.includes(" ")){
             toast.error("이메일 주소의 형식이 올바르지 않습니다.")
             return null;
@@ -104,12 +108,12 @@ const StudentPage = () => {
             return null;
         }
 
-        await API.patch(`/student/${id}`, {
+        API.patch(`/student/${id}`, {
             profile_img: profile_img,
             email: email.concat("@waffle.hs.kr"),
             phone: phone,
             major: major
-        }, config)
+        })
             .then(res => res.data)
             .then(data => {
                 if(data.success) {
@@ -157,11 +161,11 @@ const StudentPage = () => {
                 <div className="StudentInfoWrapper">
                     <div className="StudentInfoNameWrapper">
                         <div className="StudentInfoNameText">이름</div>
-                        <input className="StudentInfoNameInput" value={student.name} name="name" onChange={onChange} disabled/>
+                        <input className="StudentInfoNameInput" value={student.name || ""} name="name" onChange={onChange} disabled/>
                     </div>
                     <div className="StudentInfoGradeWrapper">
                         <div className="StudentInfoGradeText">학년</div>
-                        <input className="StudentInfoGradeInput" value={student.grade} name="grade" onChange={onChange} disabled/>
+                        <input className="StudentInfoGradeInput" value={student.grade || ""} name="grade" onChange={onChange} disabled/>
                     </div>
                 </div>
                 <div className="lockIconWrapper">
@@ -197,13 +201,13 @@ const StudentPage = () => {
                         <div className="infoContentPhone">
                             <div className="infoContentPhoneText">전화번호</div>
                             <div className="infoContentPhoneInputBox">
-                                <NumberFormat format={phoneFormat} className="infoContentPhoneInput" value={phone} name="phone" onChange={onChange} />
+                                <NumberFormat format={phoneFormat} className="infoContentPhoneInput" value={phone || ""} name="phone" onChange={onChange} />
                             </div>
                         </div>
                         <div className="infoContentEmail">
                             <div className="infoContentEmailText">이메일</div>
                             <div className="infoContentEmailInputBox">
-                                <input className="infoContentEmailInput" value={email} name="email" onChange={onChange}/>
+                                <input className="infoContentEmailInput" value={email || ""} name="email" onChange={onChange}/>
                                 <div className="infoContentEmailInputText">@waffle.hs.kr</div>
                             </div>
 
@@ -211,8 +215,8 @@ const StudentPage = () => {
                         <div className="infoContentMajor">
                             <div className="infoContentMajorText">전공</div>
                             <div className="infoContentMajorSelectBox">
-                                <select className="infoContentMajorSelect" value={major} name="major" onChange={onChange}>
-                                    <option value="" hidden></option>
+                                <select className="infoContentMajorSelect" value={major || ""} name="major" onChange={onChange}>
+                                    <option value="" hidden> </option>
                                     <option value="frontend">frontend</option>
                                     <option value="backend">backend</option>
                                     <option value="android">android</option>
@@ -224,7 +228,7 @@ const StudentPage = () => {
                         <div className="infoContentProfile">
                             <div className="infoContentProfileText">프로필</div>
                             <div className="infoContentProfileInputBox">
-                                <input className="infoContentProfileInput" onChange={onChange}/>
+                                <input className="infoContentProfileInput" value={profile_img || ""} name="profile_img" onChange={onChange}/>
                             </div>
                         </div>
                     </div>
@@ -237,7 +241,6 @@ const StudentPage = () => {
                 </div>
                 <Comment id={id} event={event} setEvent={setEvent} />
             <Confirm deleteModal={deleteModal} setDeleteModal={setDeleteModal} id={id} />
-            <ToastContainer autoClose={2500} position="top-right" />
         </div>
     )
 }

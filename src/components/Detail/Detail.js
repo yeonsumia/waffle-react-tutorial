@@ -22,7 +22,7 @@ const Detail = ({info, userList}) => {
                 profile_img: student.profile_img
             })
         }
-    }, [userList])
+    }, [info])
 
     const onChange = (e) => {
         const {value, name} = e.target;

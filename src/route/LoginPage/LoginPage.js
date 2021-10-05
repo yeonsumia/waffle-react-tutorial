@@ -3,25 +3,22 @@ import mainImg from '../../resource/img.png'
 import {useHistory} from "react-router-dom";
 import {useEffect, useState} from "react";
 import API from '../../api/API';
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
+import {useUserContext} from "../../context/UserContext";
 
 const LoginPage = () => {
     const history = useHistory();
+    const {loginToken, setLoginToken} = useUserContext();
     useEffect(() => {
-        const loginToken = localStorage.getItem('loginToken');
-        const config = {
-            headers: { Authorization: `Bearer ${loginToken}` }
-        };
-        async function loginCheckByToken () {
-            if(sessionStorage.getItem('loginCheck') !== 'true') {
-                await API.get("/student/1", config)
-                    .then(() => {
-                        sessionStorage.setItem('loginCheck', 'true');
-                        history.push('/students');
-                    })
-            } else history.push('/students');
-        }
-        loginCheckByToken();
+        if(loginToken === "") {
+            const token = localStorage.getItem('loginToken');
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            API.get("/student/1")
+                .then(() => {
+                    setLoginToken(token);
+                    history.push('/students');
+                })
+        } else history.push('/students');
     }, []);
 
     const [inputs, setInputs] = useState({
@@ -36,12 +33,14 @@ const LoginPage = () => {
             [name]: value
         });
     }
-    const loginStateConfirm = async () => {
-        await API.post("/auth/login", inputs)
+    const loginStateConfirm = () => {
+        API.post("/auth/login", inputs)
             .then(res => res.data)
             .then(data => {
-                sessionStorage.setItem('loginCheck', 'true');
-                localStorage.setItem('loginToken', data.access_token);
+                const token = data.access_token;
+                setLoginToken(data);
+                localStorage.setItem('loginToken', token);
+                API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
                 history.push('/students')
             })
             .catch(() => {
@@ -83,7 +82,6 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer autoClose={2500} position="top-right" />
         </div>
     )
 }

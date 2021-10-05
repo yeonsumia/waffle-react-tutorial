@@ -2,14 +2,12 @@ import './CommentContent.css';
 import API from "../../../api/API";
 import {useEffect, useRef, useState} from "react";
 import CommentRow from "./CommentRow/CommentRow";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
+import {useUserContext} from "../../../context/UserContext";
 
 const CommentContent = ({id, event}) => {
-    const loginToken = localStorage.getItem('loginToken');
-    const config = {
-        headers: { Authorization: `Bearer ${loginToken}` }
-    };
     const [commentList, setCommentList] = useState([]);
+    const {loginToken} = useUserContext();
     const scrollRef = useRef();
     const scrollToBottom = () => {
         const {scrollHeight, clientHeight} = scrollRef.current;
@@ -22,17 +20,25 @@ const CommentContent = ({id, event}) => {
     }, [commentList]);
 
     useEffect(() => {
-        async function getComments () {
-            await API.get(`/student/${id}/comment`, config)
+        if(loginToken === "") {
+            const token = localStorage.getItem('loginToken');
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            API.get(`/student/${id}/comment`)
                 .then(({data}) => {
                     setCommentList(data);
                 })
-                .catch(({data}) => {
-                    toast.error(data.message)
+                .catch(() => {
+                    toast.error("error!")
                 })
-
+        } else {
+            API.get(`/student/${id}/comment`)
+                .then(({data}) => {
+                    setCommentList(data);
+                })
+                .catch(() => {
+                    toast.error("error!")
+                })
         }
-        getComments();
     }, [id, event]);
 
 
@@ -41,10 +47,9 @@ const CommentContent = ({id, event}) => {
         <div className="commentContent">
             <div className="commentRowsWrapper" ref={scrollRef}>
                 {
-                    commentList.map(comment => <CommentRow comment={comment} />)
+                    commentList.sort((a,b) => a.id - b.id).map(comment => <CommentRow key={comment.id} comment={comment} />)
                 }
             </div>
-            <ToastContainer autoClose={2500} position="top-right" />
         </div>
     )
 
