@@ -1,0 +1,21 @@
+.commentContent {
+    position: absolute;
+    width: 633px;
+    height: 662px;
+    left: 744px;
+    top: 256px;
+    display: flex;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+
+    overflow-y: scroll;
+}
+
+.commentRowsWrapper {
+    width: 100%;
+    margin-left: 18px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    display: block;
+    overflow-y: scroll;
+}

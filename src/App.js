@@ -3,17 +3,25 @@ import StudentListPage from './route/StudentListPage/StudentListPage'
 import StudentPage from "./route/StudentPage/StudentPage";
 import LoginPage from "./route/LoginPage/LoginPage";
 import Auth from './hoc/Auth';
+import {ToastContainer} from "react-toastify";
+import {useEffect} from "react";
+import {useUserContext} from "./context/UserContext";
+import API from "./api/API";
 
-const App =() =>  (
+const App =() => {
     // window.sessionStorage.getItem('loginCheck') === 'true' ?
-    <BrowserRouter>
-        <Switch>
-            <Route path='/students' component={Auth(StudentListPage, true)}/>
-            <Route path='/student/:id' component={Auth(StudentPage, true)}/>
-            <Route path='/login' component={Auth(LoginPage, false)}/>
-            <Route path='*' component={Auth(null, false)}/>
-        </Switch>
-    </BrowserRouter>
-)
-
+    return (
+        <>
+            <BrowserRouter>
+                <Switch>
+                    <Route path='/students' component={Auth(StudentListPage, true)} exact/>
+                    <Route path='/student/:id' component={Auth(StudentPage, true)}/>
+                    <Route path='/login' component={Auth(LoginPage, false)}/>
+                    <Route path='*' component={Auth(null, false)}/>
+                </Switch>
+            </BrowserRouter>
+            <ToastContainer autoClose={2500} position="top-right"/>
+        </>
+        )
+}
 export default App;

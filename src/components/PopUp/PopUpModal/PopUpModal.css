@@ -1,4 +1,4 @@
-.DeleteModalWrapper {
+.PopUpModalWrapper {
     position: absolute;
     width: 1440px;
     height: 1024px;
@@ -8,7 +8,7 @@
     background: rgba(0, 0, 0, 0.36);
 }
 
-.DeleteModal {
+.PopUpModal {
     position: absolute;
     width: 636px;
     height: 333px;
@@ -18,48 +18,53 @@
     background: #FFFFFF;
 }
 
-.DeleteModalIconWrapper {
+.PopUpModalTitle {
+    position: absolute;
+    left: 46px;
+    top: 37px;
+    width: 544px;
+    height: 60px;
+}
+
+.PopUpModalIconWrapper {
     position: absolute;
     width: 60px;
     height: 60px;
-    left: 46px;
-    top: 37px;
+    left: 0px;
+    top: 0px;
+    display: flex;
 }
 
-.DeleteModalIcon {
-    position: absolute;
-    left: 4.17%;
-    right: 4.17%;
-    top: 8.33%;
-    bottom: 12.5%;
-    width: 55px;
+.PopUpModalIcon {
+    margin: auto;
+    width: 48px;
     height: 48px;
 }
 
-.DeleteModalText {
+.PopUpModalTitleText {
     position: absolute;
-    width: 451px;
-    height: 31px;
-    left: 130px;
-    top: 50px;
+    left: 70px;
+    top: 15px;
+    width: 474px;
 
     font-family: Abel;
     font-style: normal;
     font-weight: normal;
     font-size: 24px;
-    line-height: 31px;
+    line-height: 30px;
     /* identical to box height */
 
 
     color: #000000;
+
 }
 
-.DeleteModalContentText {
+.PopUpModalText {
     position: absolute;
-    width: 451px;
-    height: 23px;
-    left: 92px;
-    top: 167px;
+    left: 46px;
+    top: 107px;
+    margin: 10px;
+    width: 514px;
 
     font-family: Abel;
     font-style: normal;
@@ -68,55 +73,42 @@
     line-height: 23px;
     /* identical to box height */
 
-    text-align: center;
-
     color: #000000;
-
 }
 
-.DeleteModalCancelWrapper {
+.PopUpModalCloseCheckWrapper {
     position: absolute;
     width: 100px;
     height: 50px;
-    left: 384px;
+    left: 264px;
     top: 266px;
 
 }
 
-.DeleteModalCancel {
+.PopUpModalCloseCheck {
     position: absolute;
-    width: 100px;
+    width: 225px;
     height: 50px;
     left: 0px;
     top: 0px;
 
     background: #D3EAFF;
     border-radius: 10px;
+}
+
+.PopUpModalCloseCheckBox {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 13px;
+    top: 11px;
 
     cursor: pointer;
 }
 
-.DeleteModalCancelIconWrapper {
+.PopUpModalCloseCheckText {
     position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 13px;
-    top: 13px;
-}
-
-.DeleteModalCancelIcon {
-    position: absolute;
-    left: 8.33%;
-    right: 8.33%;
-    top: 8.33%;
-    bottom: 8.33%;
-    width: 20px;
-    height: 20px;
-}
-
-.DeleteModalCancelText {
-    position: absolute;
-    width: 34px;
+    width: 164px;
     height: 23px;
     left: 50px;
     top: 13px;
@@ -128,13 +120,13 @@
     line-height: 23px;
     /* identical to box height */
 
-    text-align: right;
+    text-align: left;
 
     color: #000000;
 
 }
 
-.DeleteModalDeleteWrapper {
+.PopUpModalCloseWrapper {
     position: absolute;
     width: 100px;
     height: 50px;
@@ -143,7 +135,7 @@
 
 }
 
-.DeleteModalDelete {
+.PopUpModalClose {
     position: absolute;
     width: 100px;
     height: 50px;
@@ -156,25 +148,25 @@
     cursor: pointer;
 }
 
-.DeleteModalDeleteIconWrapper {
+.PopUpModalCloseIconWrapper {
     position: absolute;
     width: 24px;
     height: 24px;
-    left: 10px;
+    left: 13px;
     top: 13px;
 }
 
-.DeleteModalDeleteIcon {
+.PopUpModalCloseIcon {
     position: absolute;
-    left: 20.83%;
-    right: 20.83%;
-    top: 12.5%;
-    bottom: 12.5%;
-    width: 14px;
-    height: 18px;
+    left: 8.33%;
+    right: 8.33%;
+    top: 8.33%;
+    bottom: 8.33%;
+    width: 20px;
+    height: 20px;
 }
 
-.DeleteModalDeleteText {
+.PopUpModalCloseText {
     position: absolute;
     width: 34px;
     height: 23px;

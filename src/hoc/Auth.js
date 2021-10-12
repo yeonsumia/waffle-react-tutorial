@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
+import {Redirect, useParams} from "react-router-dom";
+import API from "../api/API";
 import {useUserContext} from "../context/UserContext";
-import {Redirect} from "react-router-dom";
-
 const Auth = (SpecialComponent, option, adminRoute=null) => {
 
     /*
@@ -10,16 +10,47 @@ const Auth = (SpecialComponent, option, adminRoute=null) => {
                    false -> 로그인한 유저는 출입이 불가능한 페이지
     */
     const AuthenticateCheck = (props) => {
-        const {loginCheck} = useUserContext();
-        const sessionLoginCheck = sessionStorage.getItem('loginCheck');
+        const params = useParams();
+        const {loginToken, setLoginToken} = useUserContext();
         useEffect(() => {
-            if (!loginCheck && sessionLoginCheck !== 'true' && option) {
-                props.history.push('/login');
+            function loginCheckByToken () {
+                if(loginToken === "") {
+                    const token = localStorage.getItem('loginToken');
+                    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    console.log("token")
+                    API.get("/student/1")
+                        .then(() => {
+                            setLoginToken(token);
+                            if(params.hasOwnProperty('id')) props.history.push('/students');
+                        })
+                        .catch(() => {
+                            if(option) props.history.push('/login');
+                        })
+                }
             }
-        }, [loginCheck, props.history, sessionLoginCheck]);
+            function accessStudentLoginCheckByToken (id) {
+                if(loginToken === "") {
+                    const token = localStorage.getItem('loginToken');
+                    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                    API.get(`/student/${id}`)
+                        .then(() => {
+                            setLoginToken(token);
+                    })
+                        .catch(() => {
+                            loginCheckByToken();
+                        })
+                }
+            }
+            if(params.hasOwnProperty('id')) {
+                const id = parseInt(params.id);
+                accessStudentLoginCheckByToken(id);
+            }
+            else loginCheckByToken();
+
+        }, []);
 
         return (
-            SpecialComponent != null? <SpecialComponent /> : sessionLoginCheck? <Redirect to='/students'/> : <Redirect to='/login'/>
+            SpecialComponent != null? <SpecialComponent /> : loginToken !== ""? <Redirect to='/students'/> : <Redirect to='/login'/>
 
         )
 

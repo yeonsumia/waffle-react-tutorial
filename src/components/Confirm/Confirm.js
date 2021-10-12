@@ -2,20 +2,27 @@ import './Confirm.css'
 import deleteModalImg from "../../resource/deleteModal.png";
 import cancelImg from "../../resource/cancel.png";
 import deleteClearImg from "../../resource/deleteClear.png";
-import {useUserContext} from "../../context/UserContext";
-import {useParams, Link} from "react-router-dom";
-const Confirm = ({deleteModal, setDeleteModal}) => {
-    const {tableList, setTableList} = useUserContext();
-    const {id} = useParams();
-    const onRemove = () => {
-        setTableList(
-            tableList.filter(user => user.id !== parseInt(id))
-        );
-        setDeleteModal(value => !value);
+import {useHistory} from "react-router-dom";
+import API from '../../api/API';
+import {toast} from "react-toastify";
 
+const Confirm = ({deleteModal, setDeleteModal, id}) => {
+    const history= useHistory();
+    const onRemove = () => {
+        API.delete(`/student/${id}`)
+            .then(({data}) => {
+                if(data.success) {
+                    toast.success("삭제가 완료되었습니다.")
+                    setDeleteModal(value => !value);
+                    history.push('/students');
+                }
+            })
+            .catch(({data}) => {
+                toast.error(data.message)
+            })
     }
     return (
-        deleteModal ?
+        deleteModal &&
             <div className="DeleteModalWrapper">
                 <div className="DeleteModal">
                     <div className="DeleteModalIconWrapper">
@@ -32,21 +39,15 @@ const Confirm = ({deleteModal, setDeleteModal}) => {
                         </div>
                     </div>
                     <div className="DeleteModalDeleteWrapper">
-                        <Link to="/students" onClick={onRemove}>
-                            <div className="DeleteModalDelete">
-                                <div className="DeleteModalDeleteIconWrapper">
-                                    <img className="DeleteModalDeleteIcon" src={deleteClearImg} alt="" />
-                                </div>
-                                <div className="DeleteModalDeleteText">삭제</div>
+                        <div className="DeleteModalDelete" onClick={onRemove}>
+                            <div className="DeleteModalDeleteIconWrapper">
+                                <img className="DeleteModalDeleteIcon" src={deleteClearImg} alt="" />
                             </div>
-                        </Link>
+                            <div className="DeleteModalDeleteText">삭제</div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            :
-            null
-
     )
 }
 

@@ -1,14 +1,54 @@
 import './LoginPage.css'
 import mainImg from '../../resource/img.png'
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import {useEffect, useState} from "react";
+import API from '../../api/API';
+import {toast} from "react-toastify";
 import {useUserContext} from "../../context/UserContext";
 
 const LoginPage = () => {
-    const {setLoginCheck} = useUserContext();
-    const loginStateConfirm = () => {
-        setLoginCheck(true);
-        sessionStorage.setItem('loginCheck', 'true');
+    const history = useHistory();
+    const {loginToken, setLoginToken} = useUserContext();
+    useEffect(() => {
+        if(loginToken === "") {
+            const token = localStorage.getItem('loginToken');
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            API.get("/student/1")
+                .then(() => {
+                    setLoginToken(token);
+                    history.push('/students');
+                })
+        } else history.push('/students');
+    }, []);
+
+    const [inputs, setInputs] = useState({
+        username: '',
+        password: '',
+    });
+    const {username, password} = inputs;
+    const onChange = (e) => {
+        const {value, name} = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
     }
+    const loginStateConfirm = () => {
+        API.post("/auth/login", inputs)
+            .then(res => res.data)
+            .then(data => {
+                const token = data.access_token;
+                setLoginToken(data);
+                localStorage.setItem('loginToken', token);
+                API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                history.push('/students')
+            })
+            .catch(() => {
+                    setInputs({ username:'', password: ''});
+                    toast.error("올바르지 않은 ID/password 입니다.");
+            })
+    }
+
     return (
         <div className="LoginPageWrapper">
             <div className="LoginWrapper">
@@ -17,7 +57,7 @@ const LoginPage = () => {
                 <div className="LoginBox">
                     <div className="LoginUsernameBox">
                         <div className="LoginUsernameText">Username or email address</div>
-                        <input className="LoginUsernameInput"/>
+                        <input name="username" className="LoginUsernameInput" value={username} onChange={onChange} />
                     </div>
                     <div className="LoginPasswordBox">
                         <div className="LoginPasswordText">
@@ -25,14 +65,14 @@ const LoginPage = () => {
                             <span className="LoginPasswordForget">Forgot password?</span>
                         </div>
 
-                        <input className="LoginPasswordInput"/>
+                        <input name="password" className="LoginPasswordInput" value={password} onChange={onChange} />
                     </div>
                     <div className="LoginButtonBox">
-                        <Link to='/students' onClick={loginStateConfirm}>
+                        <div onClick={loginStateConfirm}>
                             <div className="LoginButton">
                                 <div className="LoginButtonText">Sign in</div>
                             </div>
-                        </Link>
+                        </div>
                     </div>
                 </div>
                 <div className="RegisterBox">

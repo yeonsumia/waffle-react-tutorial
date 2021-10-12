@@ -192,6 +192,7 @@ input:focus { outline: none; }
     background: #C4C4C4;
     border-radius: 10px;
 
+    cursor: pointer;
 }
 
 .lockIconImgWrapper {
@@ -249,6 +250,8 @@ input:focus { outline: none; }
 
     background: #FCD8D8;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 .lockedDeleteIcon {
     position: absolute;
@@ -315,6 +318,8 @@ input:focus { outline: none; }
 
     background: #D3FFDD;
     border-radius: 10px;
+
+    cursor: pointer;
 }
 
 .lockedSaveIcon {
@@ -676,63 +681,6 @@ input:focus { outline: none; }
     line-height: 23px;
     /* identical to box height */
     border: hidden;
-
-    color: #000000;
-
-}
-
-.commentBox {
-    position: absolute;
-    width: 104px;
-    height: 40px;
-    left: 744px;
-    top: 216px;
-
-    background: #C4C4C4;
-}
-
-.commentBoxText {
-    position: absolute;
-    width: 50px;
-    height: 23px;
-    left: 27px;
-    top: 8px;
-
-    font-family: Abel;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 23px;
-    /* identical to box height */
-
-
-    color: #000000;
-
-}
-.commentContent {
-    position: absolute;
-    width: 633px;
-    height: 717px;
-    left: 744px;
-    top: 256px;
-
-    border: 1px solid #000000;
-    box-sizing: border-box;
-}
-
-.commentContentText {
-    position: absolute;
-    width: 245px;
-    height: 46px;
-    left: 194px;
-    top: 336px;
-
-    font-family: Abel;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 23px;
-    text-align: center;
 
     color: #000000;
 
