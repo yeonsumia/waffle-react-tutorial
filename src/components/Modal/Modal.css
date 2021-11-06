@@ -126,6 +126,8 @@
     top: 213px;
 
     background: #CACACA;
+
+    cursor: pointer;
 }
 
 .closeModalText {
@@ -156,6 +158,8 @@
     top: 213px;
 
     background: #BFF8C5;
+
+    cursor: pointer;
 }
 
 .addUserText {

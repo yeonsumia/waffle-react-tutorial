@@ -1,0 +1,21 @@
+.AddStudentWrapper {
+    position: absolute;
+    width: 624px;
+    height: 30px;
+    left: 42px;
+    top: 955px;
+}
+
+.AddStudentButton {
+    width: 100%;
+    height: 100%;
+
+    font-family: Abel;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 23px;
+    color: black;
+
+    cursor: pointer;
+}

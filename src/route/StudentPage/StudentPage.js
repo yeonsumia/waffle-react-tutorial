@@ -1,5 +1,5 @@
 import './StudentPage.css'
-import {useParams} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Confirm from '../../components/Confirm/Confirm'
 import Comment from "../../components/Comment/Comment";
@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useUserContext} from "../../context/UserContext";
 
 const StudentPage = () => {
+    const history= useHistory();
     const params = useParams();
     const id = parseInt(params.id);
     const [student, setStudent] = useState([]);
@@ -27,19 +28,22 @@ const StudentPage = () => {
         if(loginToken === "") {
             const token = localStorage.getItem('loginToken');
             API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            API.get(`/student/${id}`)
-                .then(({data}) => {
-                    setStudent(data)
-                })
-                .catch(() => toast.error("학생을 불러올 수 없습니다."))
-        } else {
-            API.get("/student")
-                .then(({data}) => {
-                    setStudent(data)
-                })
-                .catch(() => toast.error("학생을 불러올 수 없습니다."))
         }
-    }, [setStudent, id])
+        API.get("/auth/check_token")
+            .then(({data}) => {
+                if(data.checked) {
+                    API.get(`/student/${id}`)
+                        .then(({data}) => {
+                            setStudent(data)
+                        })
+                        .catch(() => toast.error("학생을 불러올 수 없습니다."))
+                }
+            })
+            .catch(() => {
+                toast.error("세션이 만료되어 자동 로그아웃되었습니다.");
+                history.push("/login");
+            })
+    }, [id])
     const [locked, setLocked] = useState(false);
     const [inputs, setInputs] = useState({
         profile_img: '',
@@ -56,7 +60,7 @@ const StudentPage = () => {
             major: student.email,
         })
         setLocked(student.locked)
-    }, [student.email, student.major, student.phone, student.profile_img, student.locked]);
+    }, [student]);
 
     const initialImg ="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-1024.png";
 
@@ -66,27 +70,27 @@ const StudentPage = () => {
         API.post(`/student/${id}/lock`, {})
             .then(res => res.data)
             .then(data => {
-                if(data.success) {
+                if(data?.success) {
                     toast.success("계정을 잠그었습니다.");
 
                     setLocked(true);
                     setEvent(e => !e);
                 }
             })
-            .catch(data => toast.error(data.message))
+            .catch(error => toast.error(error.response.data.message))
     }
     const unlock = () => {
         API.post(`/student/${id}/unlock`, {})
             .then(res => res.data)
             .then(data => {
-                if(data.success) {
+                if(data?.success) {
                     // comment 달기
                     // alert("계정을 열었습니다.")
                     setLocked(false);
                     setEvent(e => !e);
                 }
             })
-            .catch(data => toast.error(data.message))
+            .catch(error => toast.error(error.response.data.message))
     }
 
     const onChange = (e) => {
@@ -99,30 +103,30 @@ const StudentPage = () => {
         e.target.selectionStart = e.target.value.length;
     }
     const onToggle = () => {
-        if(email.includes("@") || email.includes(" ")){
+        if(email?.includes("@") || email?.includes(" ")){
             toast.error("이메일 주소의 형식이 올바르지 않습니다.")
             return null;
         }
-        if(phone.length !== 13){
+        if(phone != null && phone.length !== 13){
             toast.error("전화번호의 형식이 올바르지 않습니다.")
             return null;
         }
 
         API.patch(`/student/${id}`, {
             profile_img: profile_img,
-            email: email.concat("@waffle.hs.kr"),
+            email: email?.concat("@waffle.hs.kr"),
             phone: phone,
             major: major
         })
             .then(res => res.data)
             .then(data => {
-                if(data.success) {
+                if(data?.success) {
                     // comment 달기
                     toast.success("수정이 완료되었습니다.")
                     setEvent(e => !e);
                 }
             })
-            .catch(data => toast.error(data.message))
+            .catch(error => toast.error(error.response.data.message))
     }
 
 

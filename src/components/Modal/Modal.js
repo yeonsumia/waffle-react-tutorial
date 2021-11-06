@@ -36,8 +36,8 @@ const Modal = ({modalOpen, setModalOpen, setInfo}) => {
                 })
                 setModalOpen(false)
             })
-            .catch(({data}) => {
-                toast.error(data.message)
+            .catch((error) => {
+                toast.error(error.response.data.message);
             })
     }
 

@@ -65,13 +65,11 @@ const LoginPage = () => {
                             <span className="LoginPasswordForget">Forgot password?</span>
                         </div>
 
-                        <input name="password" className="LoginPasswordInput" value={password} onChange={onChange} />
+                        <input type="password" name="password" className="LoginPasswordInput" value={password} onChange={onChange} />
                     </div>
-                    <div className="LoginButtonBox">
-                        <div onClick={loginStateConfirm}>
-                            <div className="LoginButton">
-                                <div className="LoginButtonText">Sign in</div>
-                            </div>
+                    <div className="LoginButtonBox" onClick={loginStateConfirm}>
+                        <div className="LoginButton">
+                            <div className="LoginButtonText">Sign in</div>
                         </div>
                     </div>
                 </div>

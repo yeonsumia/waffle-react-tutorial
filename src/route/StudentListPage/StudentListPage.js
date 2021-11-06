@@ -11,42 +11,73 @@ import API from "../../api/API";
 import {toast} from "react-toastify";
 import PopUp from "../../components/PopUp/PopUp";
 import {useUserContext} from "../../context/UserContext";
+import {useHistory, useParams} from "react-router-dom";
+import AddStudent from "../../components/AddStudent/AddStudent";
 
 const StudentListPage = () => {
     const [info, setInfo] = useState(0);
-    const [search, setSearch] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
     const [userList, setUserList] = useState([]);
+    const [searchName, setSearchName] = useState("");
+    const [searchGrade, setSearchGrade] = useState("");
     const {loginToken} = useUserContext();
+    const history = useHistory();
+
+    const checkParams = (location) => {
+        const params = new URLSearchParams(location.search);
+        if(params.has("name") && params.has("grade")) {
+            setSearchName(params.get("name"));
+            setSearchGrade(parseInt(params.get("grade")));
+        }
+        else if(!params.has("name") && params.has("grade")){
+            setSearchName("");
+            setSearchGrade(parseInt(params.get("grade")));
+        }
+        else if(params.has("name") && !params.has("grade")){
+            setSearchName(params.get("name"));
+            setSearchGrade("");
+        }
+        else {
+            setSearchName("");
+            setSearchGrade("");
+        }
+    }
 
     useEffect(() => {
         // 새로고침 시에는 state 변수가 모두 초기화되므로 여기선 storage 에 직접 접근해야함.
         if(loginToken === "") {
             const token = localStorage.getItem('loginToken');
             API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            API.get("/student")
-                .then(({data}) => {
-                    setUserList(data);
-                    toast.success("환영합니다!");
-                })
-                .catch(() => toast.error("명단을 불러올 수 없습니다."))
-        } else {
-            API.get("/student")
-                .then(({data}) => {
-                    setUserList(data);
-                    toast.success("환영합니다!");
-                })
-                .catch(() => toast.error("명단을 불러올 수 없습니다."))
         }
+        API.get("/auth/check_token")
+            .then(({data}) => {
+                if(data.checked) {
+                    API.get("/student")
+                        .then(({data}) => {
+                            setUserList(data);
+                            checkParams(history.location);
+                            toast.success("환영합니다!");
+                        })
+                        .catch(() => toast.error("명단을 불러올 수 없습니다."))
+                }
+            })
+            .catch(() => toast.error("세션이 만료되어 자동 로그아웃되었습니다."))
 
     }, []);
+
+    useEffect(() => {
+        return history.listen((location) => {
+            checkParams(location);
+        })
+    }, [history]);
 
     return (
         <div className="StudentListPageWrapper">
             <Header />
-            <Dashboard userList={userList} />
-            <ControlBar search={search} setSearch={setSearch} setModalOpen={setModalOpen}/>
-            <Table info={info} setInfo={setInfo} search={search} userList={userList} />
+            <Dashboard />
+            <ControlBar />
+            <Table info={info} setInfo={setInfo} userList={userList} searchName={searchName} searchGrade={searchGrade} />
+            <AddStudent setModalOpen={setModalOpen} />
             <SeparateBar />
             <Detail info={info} userList={userList} />
             <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} setInfo={setInfo}/>

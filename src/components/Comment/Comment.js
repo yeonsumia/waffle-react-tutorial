@@ -12,14 +12,19 @@ const Comment = ({id, event, setEvent}) => {
     const onClick = () => {
         if(content === "") toast.error("댓글 내용을 입력해주세요.")
         else {
-            API.post(`/student/${id}/comment`, {content: content})
+            API.get("/auth/check_token")
                 .then(({data}) => {
-                    if(data.success){
-                        setContent('');
-                        setEvent(e => !e);
+                    if(data.checked){
+                        API.post(`/student/${id}/comment`, {content: content})
+                            .then(({data}) => {
+                                if(data.success){
+                                    setContent('');
+                                    setEvent(e => !e);
+                                }
+                            })
+                            .catch(() => toast.error("Unauthorized Access"))
                     }
                 })
-                .catch(() => toast.error("Unauthorized Access"))
         }
     }
 
