@@ -1,4 +1,4 @@
-import './CommentContent.css';
+import styles from './CommentContent.module.css';
 import API from "../../../api/API";
 import {useEffect, useRef, useState} from "react";
 import CommentRow from "./CommentRow/CommentRow";
@@ -78,8 +78,8 @@ const CommentContent = ({id, event}) => {
     console.log(commentList)
 
     return (
-        <div className="commentContent">
-            <div className="commentRowsWrapper" ref={scrollRef}>
+        <div className={styles.commentContent}>
+            <div className={styles.commentRowsWrapper} ref={scrollRef}>
                 {
                     commentList.sort((a,b) => a.id - b.id).map(comment => <CommentRow key={comment.id} comment={comment} />)
                 }
