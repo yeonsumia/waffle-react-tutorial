@@ -1,4 +1,4 @@
-import styles from './CommentRow.module.css';
+import styles from './CommentRow.module.scss';
 import {DateTime} from "luxon/build/es6/luxon";
 
 const CommentRow = ({comment}) => {

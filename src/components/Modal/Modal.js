@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Modal.css'
+import './Modal.scss'
 import API from "../../api/API";
 import {toast} from "react-toastify";
 

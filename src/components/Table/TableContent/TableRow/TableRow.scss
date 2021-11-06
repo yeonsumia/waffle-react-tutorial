@@ -1,20 +1,22 @@
 .TableRowWrapper {
+
     width: 624px;
     height: 73px;
     background: #F8F8F8;
     border-bottom: 1px solid #C7C7C7;
     border-right: 1px solid #C7C7C7;
     box-sizing: border-box;
-}
 
-.TableRowWrapper:hover .TableRowDetail {
-    display: inline-block;
-    vertical-align: middle;
-    width: 33px;
-    height: 33px;
-    margin-left:365px;
+    &:hover .TableRowDetail {
+        display: inline-block;
+        vertical-align: middle;
+        width: 33px;
+        height: 33px;
+        margin-left:365px;
 
-    background: #C4C4C4;
+        background: #C4C4C4;
+    }
+
 }
 
 .TableRowDetailSelected {
@@ -38,18 +40,17 @@
     transform: rotate(135deg);
 
     cursor: pointer;
-}
 
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 15px;
+        background-color: black;
+        transform: rotate(-45deg) translate(5px, 2px);
 
-.pointRight::after {
-    content: '';
-    display: inline-block;
-    width: 2px;
-    height: 15px;
-    background-color: black;
-    transform: rotate(-45deg) translate(5px, 2px);
-
-    cursor: pointer;
+        cursor: pointer;
+    }
 }
 
 .pointLeft {
@@ -60,15 +61,15 @@
     border-top: 2px solid #000;
     border-left: 2px solid #000;
     transform: rotate(-45deg);
-}
 
-.pointLeft::after {
-    content: '';
-    display: inline-block;
-    width: 2px;
-    height: 15px;
-    background-color: black;
-    transform: rotate(-45deg) translate(5px, 2px);
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 2px;
+        height: 15px;
+        background-color: black;
+        transform: rotate(-45deg) translate(5px, 2px);
+    }
 }
 
 .TableRowDetail {

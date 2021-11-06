@@ -1,4 +1,4 @@
-import './TableRow.css'
+import './TableRow.scss'
 const TableRow = ({ user, info, setInfo }) => {
 
     const changeInfo = key => setInfo(key)
