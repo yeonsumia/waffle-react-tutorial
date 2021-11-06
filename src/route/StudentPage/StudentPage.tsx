@@ -15,14 +15,28 @@ import API from "../../api/API";
 import {toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {useUserContext} from "../../context/UserContext";
-
+interface token {
+    loginToken : string;
+}
+interface student {
+    profile_img : string;
+    email : string | null;
+    phone : string;
+    major : string;
+}
 const StudentPage = () => {
-    const history= useHistory();
-    const params = useParams();
+    const history = useHistory();
+    let params: any = useParams();
     const id = parseInt(params.id);
-    const [student, setStudent] = useState([]);
+    const [student, setStudent] = useState<any>({
+        profile_img: '',
+        email: '',
+        phone: '',
+        major: '',
+        locked: false
+    });
     const [event, setEvent] = useState(false);
-    const {loginToken} = useUserContext();
+    let {loginToken} = useUserContext() as unknown as token;
 
     useEffect(() => {
         if(loginToken === "") {
@@ -44,8 +58,8 @@ const StudentPage = () => {
                 history.push("/login");
             })
     }, [id])
-    const [locked, setLocked] = useState(false);
-    const [inputs, setInputs] = useState({
+    const [locked, setLocked] = useState<boolean>(false);
+    const [inputs, setInputs] = useState<student>({
         profile_img: '',
         email: '',
         phone: '',
@@ -57,7 +71,7 @@ const StudentPage = () => {
             profile_img: student.profile_img,
             email: !!(student.email)? student.email.split('@')[0] : null,
             phone: student.phone,
-            major: student.email,
+            major: student.major,
         })
         setLocked(student.locked)
     }, [student]);
@@ -93,7 +107,7 @@ const StudentPage = () => {
             .catch(error => toast.error(error.response.data.message))
     }
 
-    const onChange = (e) => {
+    const onChange = (e : any) => {
         const {value, name} = e.target;
         setInputs({
             ...inputs,
@@ -130,7 +144,7 @@ const StudentPage = () => {
     }
 
 
-    const limit = (val) => {
+    const limit = (val : any) => {
         if(val.length === 1 && val[0] !== '0'){
             return '010' + val;
         }
@@ -143,7 +157,7 @@ const StudentPage = () => {
         return val;
     }
 
-    const phoneFormat = (val) => {
+    const phoneFormat = (val : any) => {
         const header = limit(val.substring(0,3));
         const content = val.substring(3,7);
         const footer = val.substring(7,11);
@@ -181,7 +195,7 @@ const StudentPage = () => {
                     </div>
                 </div>
                 <div className="deleteIconWrapper">
-                    <div className={locked? "lockedDeleteIcon" : "deleteIcon" } onClick={locked? null : () => setDeleteModal(state => !state)}>
+                    <div className={locked? "lockedDeleteIcon" : "deleteIcon" } onClick={locked? undefined : () => setDeleteModal(state => !state)}>
                         <div className="deleteIconImgWrapper">
                             <img src={deleteImg} className="deleteIconImg" alt=""/>
                         </div>
@@ -189,7 +203,7 @@ const StudentPage = () => {
                     </div>
                 </div>
                 <div className="saveIconWrapper">
-                    <div className={locked? "lockedSaveIcon" : "saveIcon" } onClick={locked? null : onToggle}>
+                    <div className={locked? "lockedSaveIcon" : "saveIcon" } onClick={locked? undefined : onToggle}>
                         <div className="saveIconImgWrapper">
                             <img src={saveImg} className="saveIconImg" alt=""/>
                         </div>

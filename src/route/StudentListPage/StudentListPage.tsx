@@ -13,24 +13,28 @@ import PopUp from "../../components/PopUp/PopUp";
 import {useUserContext} from "../../context/UserContext";
 import {useHistory, useParams} from "react-router-dom";
 import AddStudent from "../../components/AddStudent/AddStudent";
-
+interface token {
+    loginToken : string;
+}
 const StudentListPage = () => {
     const [info, setInfo] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
     const [userList, setUserList] = useState([]);
     const [searchName, setSearchName] = useState("");
     const [searchGrade, setSearchGrade] = useState("");
-    const {loginToken} = useUserContext();
+    const {loginToken} = useUserContext() as unknown as token;
     const history = useHistory();
 
-    const checkParams = (location) => {
-        const params = new URLSearchParams(location.search);
+    const checkParams = (location : any) => {
+        const params : any = new URLSearchParams(location.search);
         if(params.has("name") && params.has("grade")) {
             setSearchName(params.get("name"));
+            // @ts-ignore
             setSearchGrade(parseInt(params.get("grade")));
         }
         else if(!params.has("name") && params.has("grade")){
             setSearchName("");
+            // @ts-ignore
             setSearchGrade(parseInt(params.get("grade")));
         }
         else if(params.has("name") && !params.has("grade")){
