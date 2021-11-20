@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Modal.css'
+import './Modal.scss'
 import API from "../../api/API";
 import {toast} from "react-toastify";
 
@@ -36,8 +36,8 @@ const Modal = ({modalOpen, setModalOpen, setInfo}) => {
                 })
                 setModalOpen(false)
             })
-            .catch(({data}) => {
-                toast.error(data.message)
+            .catch((error) => {
+                toast.error(error.response.data.message);
             })
     }
 

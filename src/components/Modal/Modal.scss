@@ -12,14 +12,14 @@
     /*animation: modal-bg-disappear .3s;*/
     opacity: 0;
     transition: visibility .5s, opacity .5s;
-}
 
-.modal.openModal {
-    visibility: visible;
-    /*align-items: center;*/
-    /* 팝업이 열릴때 스르륵 열리는 효과 */
-    /*animation: modal-bg-show .3s;*/
-    opacity: 1;
+    .openModal {
+        visibility: visible;
+        /*align-items: center;*/
+        /* 팝업이 열릴때 스르륵 열리는 효과 */
+        /*animation: modal-bg-show .3s;*/
+        opacity: 1;
+    }
 }
 
 .modalWrapper {
@@ -126,6 +126,8 @@
     top: 213px;
 
     background: #CACACA;
+
+    cursor: pointer;
 }
 
 .closeModalText {
@@ -156,6 +158,8 @@
     top: 213px;
 
     background: #BFF8C5;
+
+    cursor: pointer;
 }
 
 .addUserText {

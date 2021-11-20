@@ -1,6 +1,7 @@
 .TableContentWrapper {
     width: 624px;
-    height: 538px;
+    height: 498px;
+    border-bottom: solid 1px #C7C7C7;
     overflow: scroll;
 }
 

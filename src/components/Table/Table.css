@@ -1,7 +1,7 @@
 .TableWrapper {
     position: absolute;
     width: 625px;
-    height: 598px;
+    height: 558px;
     left: 42px;
     top: 387px;
     border: 1px solid #C7C7C7;
@@ -68,7 +68,7 @@
 .TableContent {
     position: absolute;
     width: 624px;
-    height: 538px;
+    height: 498px;
     left: 0px;
     top: 59px
 }

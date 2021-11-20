@@ -5,10 +5,17 @@ import {useEffect, useState} from "react";
 import API from '../../api/API';
 import {toast} from "react-toastify";
 import {useUserContext} from "../../context/UserContext";
-
+interface token {
+    loginToken : string;
+    setLoginToken : any;
+}
+interface user {
+    username : string;
+    password : string;
+}
 const LoginPage = () => {
     const history = useHistory();
-    const {loginToken, setLoginToken} = useUserContext();
+    const {loginToken, setLoginToken} = useUserContext() as unknown as token;
     useEffect(() => {
         if(loginToken === "") {
             const token = localStorage.getItem('loginToken');
@@ -21,12 +28,12 @@ const LoginPage = () => {
         } else history.push('/students');
     }, []);
 
-    const [inputs, setInputs] = useState({
+    const [inputs, setInputs] = useState<user>({
         username: '',
         password: '',
     });
     const {username, password} = inputs;
-    const onChange = (e) => {
+    const onChange = (e : any) => {
         const {value, name} = e.target;
         setInputs({
             ...inputs,
@@ -65,13 +72,11 @@ const LoginPage = () => {
                             <span className="LoginPasswordForget">Forgot password?</span>
                         </div>
 
-                        <input name="password" className="LoginPasswordInput" value={password} onChange={onChange} />
+                        <input type="password" name="password" className="LoginPasswordInput" value={password} onChange={onChange} />
                     </div>
-                    <div className="LoginButtonBox">
-                        <div onClick={loginStateConfirm}>
-                            <div className="LoginButton">
-                                <div className="LoginButtonText">Sign in</div>
-                            </div>
+                    <div className="LoginButtonBox" onClick={loginStateConfirm}>
+                        <div className="LoginButton">
+                            <div className="LoginButtonText">Sign in</div>
                         </div>
                     </div>
                 </div>

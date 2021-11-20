@@ -1,15 +1,43 @@
 import './Dashboard.css'
 import {PieChart, Pie} from "recharts";
+import {useEffect, useState} from "react";
+import API from "../../api/API"
+import {useUserContext} from "../../context/UserContext";
+import {toast} from "react-toastify";
+import {useHistory} from "react-router-dom";
 
-const Dashboard = ({userList}) => {
-    const firstGradeNum = userList.filter(user => user.grade === 1).length;
-    const secondGradeNum = userList.filter(user => user.grade === 2).length;
-    const thirdGradeNum = userList.filter(user => user.grade === 3).length;
-    const totalNum = userList.length;
+const Dashboard = () => {
+    const {loginToken} = useUserContext();
+    const history= useHistory();
+    const [stat, setStat] = useState({
+        firstGradeNum : 0,
+        secondGradeNum : 0,
+        thirdGradeNum : 0
+    });
+    const fetchStat = () => {
+        if(loginToken === "") {
+            const token = localStorage.getItem('loginToken');
+            API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+        API.get("/student/stat")
+            .then(({data}) => {
+                return data.count;
+            })
+            .then(stat => setStat({ firstGradeNum : stat["1"], secondGradeNum: stat["2"], thirdGradeNum: stat["3"] }))
+            .catch(() => {
+                toast.error("서버와 연결이 끊겼습니다.")
+                history.push("/login");
+            })
+    }
+    useEffect(() => {
+        const startInterval = setInterval(fetchStat, 3000);
+        return () => clearInterval(startInterval);
+    }, []);
+    const totalNum = stat.firstGradeNum + stat.secondGradeNum + stat.thirdGradeNum;
     const data = [
-        {name: '1학년', value: firstGradeNum},
-        {name: '2학년', value: secondGradeNum},
-        {name: '3학년', value: thirdGradeNum}
+        {name: '1학년', value: stat.firstGradeNum},
+        {name: '2학년', value: stat.secondGradeNum},
+        {name: '3학년', value: stat.thirdGradeNum}
     ];
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -31,9 +59,9 @@ const Dashboard = ({userList}) => {
                 <div className="DashboardText">
                     <div className="DashboardTextTitle">와플 고등학교</div>
                     <div className="DashboardTextInfo">
-                        <div className="DashboardTextFirst">1학년: {firstGradeNum}</div>
-                        <div className="DashboardTextSecond">2학년: {secondGradeNum}</div>
-                        <div className="DashboardTextThird">3학년: {thirdGradeNum}</div>
+                        <div className="DashboardTextFirst">1학년: {stat.firstGradeNum}</div>
+                        <div className="DashboardTextSecond">2학년: {stat.secondGradeNum}</div>
+                        <div className="DashboardTextThird">3학년: {stat.thirdGradeNum}</div>
                         <div className="DashboardTextTotal">전교생: {totalNum}</div>
                     </div>
                     <div className="DashboardPieChartWrapper">

@@ -4,12 +4,8 @@ import StudentPage from "./route/StudentPage/StudentPage";
 import LoginPage from "./route/LoginPage/LoginPage";
 import Auth from './hoc/Auth';
 import {ToastContainer} from "react-toastify";
-import {useEffect} from "react";
-import {useUserContext} from "./context/UserContext";
-import API from "./api/API";
 
 const App =() => {
-    // window.sessionStorage.getItem('loginCheck') === 'true' ?
     return (
         <>
             <BrowserRouter>
