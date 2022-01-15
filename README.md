@@ -1,4 +1,4 @@
-# waffle-rookies-19.5-react-assignment-2
+# waffle-rookies-19.5-react-assignment
 #
 ### 모든 스펙은 갖추었습니다.
 
